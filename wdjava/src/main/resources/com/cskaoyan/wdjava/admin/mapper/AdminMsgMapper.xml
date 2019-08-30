@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.admin.mapper.AdminMsgMapper">
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.admin.bean.AdminMsg">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="goodsId" jdbcType="INTEGER" property="goodsId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="replyContent" jdbcType="VARCHAR" property="replyContent"/>
+    </resultMap>
+    <select id="noReplyMsg" resultMap="BaseMap" >
+       select id, userId, goodsId, content, state, createtime
+       from messages
+       where state = 1
+    </select>
+
+    <resultMap id="BaseGoods" type="com.cskaoyan.wdjava.admin.bean.AdminAddGoods">
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="getGoodsByGoodsId" parameterType="integer" resultMap="BaseGoods" >
+        select name
+        from goods
+        where id = #{goodsId,jdbcType=INTEGER}
+    </select>
+
+
+    <resultMap id="BaseUser" type="com.cskaoyan.wdjava.admin.bean.AdminUser">
+        <result column="headimg" jdbcType="VARCHAR" property="headimg"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="getUserByUserId" parameterType="integer" resultMap="BaseUser" >
+        select headimg , nickname as name
+        from users
+        where  id = #{userId,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="repliedMsg" resultMap="BaseMap" >
+       select t.id, t.userId, t.goodsId, t.content, t.state, t.createtime,r.content as replyContent
+       from messages t , replymsg r
+       where t.id = r.msgId
+       and t.state = 0
+    </select>
+
+    <insert id="insertReply" parameterType="com.cskaoyan.wdjava.admin.bean.AdminReply">
+        insert into replymsg (msgId, content)
+        values (
+             #{id,jdbcType=INTEGER},
+             #{content,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateStateByMsgId" parameterType="integer">
+        update messages
+        set state = 0
+        where id =  #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

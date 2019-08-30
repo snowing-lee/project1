@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.vue.mapper.LoginMapper">
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.vue.bean.Login">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="pwd" jdbcType="INTEGER" property="pwd"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+    </resultMap>
+
+
+    <select id="login" resultMap="BaseMap" parameterType="string">
+       select g.id,  g.email,  g.pwd,  g.nickname from users g
+        where g.email =  #{account,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="signup" parameterType="com.cskaoyan.wdjava.vue.vo.LoginReq">
+        insert into users (
+                email,
+                pwd,
+                nickname,
+                recipient,
+                address,
+                phone
+        )
+        values (
+                #{email,jdbcType=VARCHAR},
+                #{pwd,jdbcType=VARCHAR},
+                #{nickname,jdbcType=VARCHAR},
+                #{recipient,jdbcType=VARCHAR},
+                #{address,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <resultMap id="BaseData" type="com.cskaoyan.wdjava.vue.vo.LoginRes">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="headimg" jdbcType="VARCHAR" property="headimg"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="recipient" jdbcType="VARCHAR" property="recipient"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    </resultMap>
+    <select id="data" resultMap="BaseData" parameterType="string">
+        select t.id,t.headimg, t.email, t.nickname ,t.recipient ,t.address, t.phone
+        from  users t
+        where t.nickname = #{token,jdbcType=VARCHAR}
+    </select>
+
+    <select id="checkPwd" parameterType="integer" resultType="string">
+        select t.pwd
+        from users t
+        where t.id =  #{id, jdbcType=INTEGER}
+    </select>
+
+    <update id="updatePwd">
+        update users t
+        set t.pwd =  #{newPwd,jdbcType=VARCHAR}
+        where t.id =  #{id, jdbcType=INTEGER}
+    </update>
+
+</mapper>

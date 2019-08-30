@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.vue.mapper.GoodMapper">
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.vue.vo.GoodRes">
+
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="unitPrice" jdbcType="FLOAT" property="price"/>
+        <result column="typeId" jdbcType="INTEGER" property="typeId"/>
+        <result column="stockNum" jdbcType="INTEGER" property="stockNum"/>
+    </resultMap>
+    <select id="getGoodsByType" resultMap="BaseMap" parameterType="integer">
+       select g.id, g.img, g.name, g.unitPrice, g.typeId , g.stockNum from goods g
+       <if test="typeId == -1">
+
+       </if>
+       <if test="typeId != -1">
+           where g.typeId =  #{typeId,jdbcType=INTEGER}
+       </if>
+    </select>
+
+    <resultMap id="BaseGoodMap" type="com.cskaoyan.wdjava.vue.bean.Good">
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="DESC" jdbcType="VARCHAR" property="desc"/>
+        <result column="typeId" jdbcType="INTEGER" property="typeId"/>
+    </resultMap>
+    <select id="getGoodsInfoById" resultMap="BaseGoodMap" parameterType="integer">
+        select g.img, g.name, g.DESC, g.typeId from goods g
+         where g.id =  #{id,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseSpecsMap" type="com.cskaoyan.wdjava.vue.bean.Specs">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="specName" jdbcType="VARCHAR" property="specName"/>
+        <result column="stockNum" jdbcType="INTEGER" property="stockNum"/>
+        <result column="unitPrice" jdbcType="FLOAT" property="unitPrice"/>
+    </resultMap>
+    <select id="selectSpecsById"  resultMap="BaseSpecsMap" parameterType="integer">
+        select g.id, g.specName, g.stockNum, g.unitPrice from goodsdetails g
+         where g.goodsId =  #{id,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseMsgMap" type="com.cskaoyan.wdjava.vue.bean.Messages">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="asker" jdbcType="VARCHAR" property="asker"/>
+        <result column="time1" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <select id="getGoodsMsg" resultMap="BaseMsgMap" parameterType="integer">
+        select
+        t.id, t.content, u.nickname as asker, t.createtime  as time1
+        from messages t
+        left join users u on u.id = t.userId
+        where t.goodsId =  #{id,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseReplyMap" type="com.cskaoyan.wdjava.vue.bean.Reply">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <select id="getReplyByMsgId"  resultMap="BaseReplyMap" parameterType="integer">
+         select
+        t.id, t.content, t.createtime
+        from replymsg t
+        where t.msgId =  #{msgId,jdbcType=INTEGER}
+    </select>
+
+
+    <resultMap id="BaseComment" type="com.cskaoyan.wdjava.vue.bean.Comment">
+
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="comment"/>
+        <result column="score" jdbcType="FLOAT" property="score"/>
+        <result column="specName" jdbcType="VARCHAR" property="specName"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="time"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+    </resultMap>
+    <select id="getGoodsComment"  resultMap="BaseComment" parameterType="integer">
+        select
+            t.id,
+            t.content,
+            t.score,
+            gd.specName,
+            t.createtime,
+            t.userId
+        from comments t , goodsdetails gd, goods g, orders o
+        where  t.goodsId = g.id
+        and t.goodsDetailId = gd.id
+        and t.orderId = o.id
+        and o.id is not  null
+        and g.id =  #{goodsId,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectUserBy" resultType="com.cskaoyan.wdjava.vue.bean.User" parameterType="integer">
+        select  t.nickname , t.headimg
+        from users t
+        where t.id =   #{userId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

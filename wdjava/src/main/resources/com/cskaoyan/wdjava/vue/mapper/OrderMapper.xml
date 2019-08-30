@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.vue.mapper.OrderMapper">
+
+
+    <insert id="addOrder" parameterType="com.cskaoyan.wdjava.vue.bean.Order">
+        insert into orders (
+                userId,
+                goodsDetailId,
+                goodsNum,
+                amount,
+                state
+        )
+        values (
+                #{userId,jdbcType=INTEGER},
+                #{goodsDetailId,jdbcType=INTEGER},
+                #{num,jdbcType=INTEGER},
+                #{amount,jdbcType=FLOAT},
+                #{state,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <select id="getGoodsDetailNumById" parameterType="integer" resultType="integer">
+        select t.stockNum
+        from goodsdetails t
+        where t.id =   #{goodsDetailId,jdbcType=INTEGER}
+    </select>
+
+    <update id="reduceGoodsDetailNumById" parameterType="com.cskaoyan.wdjava.vue.bean.Order">
+        update  goodsdetails t
+        set t.stockNum = t.stockNum - #{num,jdbcType=INTEGER}
+        where  t.id =   #{goodsDetailId,jdbcType=INTEGER}
+    </update>
+
+    <update id="reduceGoodsNumById" parameterType="com.cskaoyan.wdjava.vue.bean.Order">
+         update  goods t
+        set t.stockNum = t.stockNum - #{num,jdbcType=INTEGER}
+        where  t.id =
+         ( select gd.goodsId from goodsdetails gd where gd.id=  #{goodsDetailId,jdbcType=INTEGER})
+    </update>
+
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.vue.vo.OrderRes">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="goodsNum" jdbcType="INTEGER" property="goodsNum"/>
+        <result column="amount" jdbcType="FLOAT" property="amount"/>
+        <result column="goodsDetailId" jdbcType="INTEGER" property="goodsDetailId"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+    </resultMap>
+    <select id="getOrderByState" resultMap="BaseMap" parameterType="com.cskaoyan.wdjava.vue.vo.OrderReq">
+        select  t.id , t.amount, t.state , t.goodsNum ,t.goodsDetailId, t.createtime
+        from  orders t
+        where  t.userId = #{userId,jdbcType=INTEGER}
+        <if test="state == -1">
+        </if>
+        <if test="state != -1">
+            and t.state = #{state,jdbcType=INTEGER}
+        </if>
+
+    </select>
+
+    <select id="selectCommentByGoodsDetailId" parameterType="integer" resultType="integer">
+        select t.id
+        from  comments t
+        where t.goodsDetailId = #{goodsDetailId, jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseSGBGDI" type="com.cskaoyan.wdjava.vue.bean.Good">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="goodsDetailId" jdbcType="INTEGER" property="goodsDetailId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="specName" jdbcType="VARCHAR" property="spec"/>
+        <result column="unitPrice" jdbcType="FLOAT" property="unitPrice"/>
+    </resultMap>
+    <select id="selectGoodByGoodsDetailId"  resultMap="BaseSGBGDI" parameterType="integer">
+        select g.id , g.img, gd.id as goodsDetailId , g.name, gd.specName , gd.unitPrice
+        from goodsdetails gd , goods g
+        where  gd.goodsId = g.id
+        and gd.id = #{goodsDetailId, jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteOrder" parameterType="integer">
+        delete from orders
+        where id =  #{id, jdbcType=INTEGER}
+    </delete>
+
+
+    <resultMap id="BaseOrderA" type="com.cskaoyan.wdjava.vue.bean.Order">
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="goodsNum" jdbcType="INTEGER" property="num"/>
+        <result column="goodsDetailId" jdbcType="INTEGER" property="goodsDetailId"/>
+        <result column="stockNum" jdbcType="INTEGER" property="stockNum"/>
+    </resultMap>
+    <select id="getOrderById" resultMap="BaseOrderA" parameterType="integer">
+        select  t.goodsDetailId , t.goodsNum, t.userId, g.stockNum
+        from orders t
+        left join goodsdetails g on g.id = t.goodsDetailId
+        where t.id =  #{id, jdbcType=INTEGER}
+    </select>
+
+    <update id="addGoodDetail">
+        update goodsdetails t
+        set t.stockNum = t.stockNum +  #{addNum, jdbcType=INTEGER}
+        where t.id =  #{goodsDetailId, jdbcType=INTEGER}
+    </update>
+    <update id="addGood">
+         update goods t
+        set t.stockNum = t.stockNum +  #{addNum, jdbcType=INTEGER}
+        where t.id =
+        (
+        select gd.goodsId from goodsdetails gd
+        where gd.id =  #{goodsDetailId, jdbcType=INTEGER}
+        )
+    </update>
+
+    <update id="reduceGoodDetail">
+         update goodsdetails t
+        set t.stockNum = t.stockNum -  #{less, jdbcType=INTEGER}
+        where t.id =  #{goodsDetailId, jdbcType=INTEGER}
+    </update>
+    <update id="reduceGood">
+         update goods t
+        set t.stockNum = t.stockNum -  #{less, jdbcType=INTEGER}
+        where t.id =
+        (
+        select gd.goodsId from goodsdetails gd
+        where gd.id =  #{goodsDetailId, jdbcType=INTEGER}
+        )
+    </update>
+
+    <update id="overOrder" >
+        update orders o
+        set o.state = 1
+        where o.id =  #{id, jdbcType=INTEGER}
+    </update>
+
+</mapper>

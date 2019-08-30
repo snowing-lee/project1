@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.vue.mapper.TestMapper">
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.vue.bean.Test">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+    </resultMap>
+    <select id="select" resultMap="BaseMap">
+        select  * from users
+    </select>
+
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.admin.mapper.AdminGoodsMapper">
+
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.vue.vo.TypeRes">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="getType" resultMap="BaseMap">
+       select g.id,  g.name from types g
+    </select>
+
+
+    <resultMap id="BaseMap1" type="com.cskaoyan.wdjava.vue.vo.GoodRes">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="unitPrice" jdbcType="FLOAT" property="price"/>
+        <result column="typeId" jdbcType="INTEGER" property="typeId"/>
+        <result column="stockNum" jdbcType="INTEGER" property="stockNum"/>
+    </resultMap>
+    <select id="getGoodsByType" resultMap="BaseMap1" parameterType="integer">
+        select g.id, g.img, g.name, g.unitPrice, g.typeId , g.stockNum from goods g
+        <if test="typeId == -1">
+        </if>
+        <if test="typeId != -1">
+            where g.typeId =  #{typeId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <resultMap id="BaseType" type="com.cskaoyan.wdjava.admin.bean.AdminType">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="selectAllType" resultMap="BaseType">
+        select type, id, name
+        from types
+    </select>
+
+    <insert id="addType" parameterType="string">
+        insert into types (
+                    `name`
+        ) values (
+                #{name,jdbcType=VARCHAR}
+                )
+    </insert>
+
+    <update id="updateType">
+        update types
+        set type = id
+        where type is  null
+    </update>
+
+    <insert id="insertGoods" parameterType="com.cskaoyan.wdjava.admin.bean.AdminAddGoods">
+        <selectKey resultType="java.lang.Integer"  keyProperty="id" order="AFTER">
+            SELECT @@IDENTITY as  id
+        </selectKey>
+        insert into goods (
+                `name`,
+                img,
+                typeId,
+                `desc`,
+                unitPrice,
+                stockNum
+        )
+        values (
+                #{name,jdbcType=VARCHAR},
+                #{img,jdbcType=VARCHAR},
+                #{typeId,jdbcType=INTEGER},
+                #{desc,jdbcType=VARCHAR},
+                #{unitPrice,jdbcType=FLOAT},
+                #{stockNum,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <insert id="insertGoodsDetail" parameterType="com.cskaoyan.wdjava.vue.bean.Specs">
+         insert into goodsdetails (
+                goodsId,
+                specName,
+                stockNum,
+                unitPrice
+        )
+        values (
+                #{id,jdbcType=INTEGER},
+                #{specName,jdbcType=VARCHAR},
+                #{stockNum,jdbcType=INTEGER},
+                #{unitPrice,jdbcType=FLOAT}
+        )
+    </insert>
+
+    <delete id="deleteGoodsById" parameterType="integer">
+        delete from goods
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteGoodsDetailById" parameterType="integer">
+        delete from goodsdetails
+        where goodsId  = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <resultMap id="BaseGoodMap" type="com.cskaoyan.wdjava.vue.bean.Good">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="DESC" jdbcType="VARCHAR" property="desc"/>
+        <result column="typeId" jdbcType="INTEGER" property="typeId"/>
+    </resultMap>
+    <select id="getGoodsInfoById" resultMap="BaseGoodMap" parameterType="integer">
+        select g.id, g.img, g.name, g.DESC, g.typeId from goods g
+         where g.id =  #{id,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseSpecsMap" type="com.cskaoyan.wdjava.vue.bean.Specs">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="specName" jdbcType="VARCHAR" property="specName"/>
+        <result column="stockNum" jdbcType="INTEGER" property="stockNum"/>
+        <result column="unitPrice" jdbcType="FLOAT" property="unitPrice"/>
+    </resultMap>
+    <select id="selectSpecsById"  resultMap="BaseSpecsMap" parameterType="integer">
+        select g.id, g.specName, g.stockNum, g.unitPrice from goodsdetails g
+         where g.goodsId =  #{id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateGoods" parameterType="com.cskaoyan.wdjava.admin.bean.UpdateGoods">
+        update goods
+        set img = #{img,jdbcType=VARCHAR},
+            `name` = #{name,jdbcType=VARCHAR},
+            `desc` = #{desc,jdbcType=VARCHAR},
+            unitPrice = #{minimumPrice,jdbcType=FLOAT},
+            stockNum = #{sumStock,jdbcType=INTEGER},
+            typeId = #{typeId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateGoodsDetail" parameterType="com.cskaoyan.wdjava.vue.bean.Specs">
+        update goodsdetails
+        set specName = #{specName,jdbcType=VARCHAR},
+            stockNum =  #{stockNum,jdbcType=INTEGER},
+            unitPrice = #{unitPrice,jdbcType=FLOAT}
+        where id= #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

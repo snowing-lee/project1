@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.vue.mapper.SearchMapper">
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.vue.vo.GoodRes">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="unitPrice" jdbcType="FLOAT" property="price"/>
+        <result column="typeId" jdbcType="INTEGER" property="typeId"/>
+    </resultMap>
+
+
+    <select id="searchGoods" resultMap="BaseMap" parameterType="string">
+       select g.id, g.img, g.name, g.unitPrice, g.typeId from goods g
+       where g.name like  upper(concat(concat('%',#{keyword,jdbcType=VARCHAR}),'%'))
+    </select>
+
+</mapper>

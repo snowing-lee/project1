@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.wdjava.admin.mapper.AdminOrderMapper">
+
+    <resultMap id="BaseMap" type="com.cskaoyan.wdjava.admin.vo.AdminOrderRes">
+
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="goodsDetailId" jdbcType="INTEGER" property="goodsDetailId"/>
+        <result column="goodsNum" jdbcType="INTEGER" property="goodsNum"/>
+        <result column="amount" jdbcType="FLOAT" property="amount"/>
+        <result column="stateId" jdbcType="INTEGER" property="stateId"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+
+    </resultMap>
+    <select id="getOrders" resultMap="BaseMap" parameterType="integer">
+       select
+                id,
+                userId,
+                goodsDetailId,
+                goodsNum,
+                amount,
+                state as stateId,
+                updatetime
+       from orders
+        <if test="state == -1">
+
+        </if>
+        <if test="state != -1">
+            where state =  #{state,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="ordersByPage" resultMap="BaseMap">
+        select
+        id,
+        userId,
+        goodsDetailId,
+        goodsNum,
+        amount,
+        state as stateId,
+        updatetime
+        from orders
+        <if test="state == -1">
+
+        </if>
+        <if test="state != -1">
+            where state =  #{state,jdbcType=INTEGER}
+        </if>
+        order by createtime desc
+        limit  #{limit,jdbcType=INTEGER}, #{pagesize,jdbcType=INTEGER}
+    </select>
+
+
+    <resultMap id="BaseGoodMap" type="com.cskaoyan.wdjava.vue.bean.Good">
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="specName" jdbcType="VARCHAR" property="spec"/>
+    </resultMap>
+    <select id="getGoodsDetailByDetailId" parameterType="integer" resultMap="BaseGoodMap">
+        select g.name , gd.specName
+        from  goods g , goodsdetails gd
+        where g.id = gd.goodsId
+        and gd.id = #{goodsDetailId,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseUserMap" type="com.cskaoyan.wdjava.admin.bean.AdminUser">
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="recipient" jdbcType="VARCHAR" property="name"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    </resultMap>
+    <select id="selectUserByUserId" parameterType="integer" resultMap="BaseUserMap">
+        select nickname,  recipient, address, phone
+        from  users
+        where id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteOrderByOrderId" parameterType="integer">
+         delete from orders
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <resultMap id="BaseGetOrder" type="com.cskaoyan.wdjava.admin.bean.AdminOrder">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="amount" jdbcType="FLOAT" property="amount"/>
+        <result column="goodsNum" jdbcType="INTEGER" property="num"/>
+
+        <result column="goodsDetailId" jdbcType="INTEGER" property="goodsDetailId"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+    <select id="getOrder" resultMap="BaseGetOrder" parameterType="integer">
+        select id, amount,  goodsNum,  goodsDetailId, state
+        from orders
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="BaseDetailOrder" type="com.cskaoyan.wdjava.vue.bean.Specs">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="specName" jdbcType="VARCHAR" property="specName"/>
+    </resultMap>
+    <select id="selectGoodsDetailsByDetailId" resultMap="BaseDetailOrder" parameterType="integer">
+        select t.specName , t.id
+        from goodsdetails t
+        where t.goodsId = (
+                select tt.goodsId from  goodsdetails tt
+                where tt.id = #{goodsDetailId,jdbcType=INTEGER}
+        )
+    </select>
+
+    <select id="selectGoodsNameByDetailId" parameterType="integer" resultType="string">
+         select t.name
+        from goods t
+        where t.id = (
+                select tt.goodsId from  goodsdetails tt
+                where tt.id = #{goodsDetailId,jdbcType=INTEGER}
+        )
+    </select>
+
+    <update id="updateOrder" parameterType="com.cskaoyan.wdjava.admin.bean.ChangeOrder">
+        update orders
+        set goodsDetailId = #{spec,jdbcType=INTEGER},
+            goodsNum  = #{num,jdbcType=INTEGER},
+            state  = #{state,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
