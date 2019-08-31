@@ -94,7 +94,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         String account = adminLogin.getAccount();
         Integer idres = loginMapper.accountaccount(account);
         if (idres != null && id>0 ){
-            if (id != idres){
+            if (id.intValue() != idres.intValue()){
                 baseRes.setCode(10000);
                 baseRes.setMessage("该账号不允许重复使用");
                 return baseRes;
