@@ -131,6 +131,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
         adminGoodsMapper.deleteGoodsById(id);
 
         adminGoodsMapper.deleteGoodsDetailById(id);
+        adminGoodsMapper.deleteOrderByGoodsId(id);
+        adminGoodsMapper.deleteMessageByGoodsId(id);
 
         baseRes.setCode(0);
         return baseRes;

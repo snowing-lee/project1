@@ -98,6 +98,17 @@
         delete from goodsdetails
         where goodsId  = #{id,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteOrderByGoodsId" parameterType="integer">
+        delete from orders
+        where goodsDetailId not in (
+        select id from  goodsdetails
+        where goodsId = #{id,jdbcType=INTEGER}
+        )
+    </delete>
+    <delete id="deleteMessageByGoodsId"  parameterType="integer">
+        delete from messages
+        where goodsId =  #{id,jdbcType=INTEGER}
+    </delete>
 
 
     <resultMap id="BaseGoodMap" type="com.cskaoyan.wdjava.vue.bean.Good">

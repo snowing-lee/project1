@@ -50,6 +50,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         BaseRes baseRes = new BaseRes();
         Integer id = loginReq.getId();
 
+        // 同时删除对应留言等
+        loginMapper.deleteOrderByUserId(id);
+        loginMapper.deleteMessageByUserId(id);
+        loginMapper.deleteReMessageByUserid(id);
+
         loginMapper.deleteUser(id);
 
         baseRes.setCode(0);

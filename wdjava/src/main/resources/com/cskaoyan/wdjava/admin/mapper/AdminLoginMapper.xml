@@ -22,6 +22,19 @@
         delete from admins
         where id =  #{id,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteOrderByUserId"  parameterType="integer">
+        delete from orders
+        where userId =  #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteMessageByUserId" parameterType="integer">
+        delete from messages
+        where userId =  #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteReMessageByUserid" parameterType="integer">
+        delete from replymsg
+        where msgId not in
+        (select id  from  messages)
+    </delete>
 
     <resultMap id="BaseToken" type="com.cskaoyan.wdjava.admin.bean.ChangePwd">
         <result column="pwd" jdbcType="VARCHAR" property="oldPwd"/>

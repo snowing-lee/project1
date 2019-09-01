@@ -37,4 +37,8 @@ public interface AdminGoodsMapper {
     void updateGoods(UpdateGoods updateGoods);
 
     void updateGoodsDetail(Specs specs);
+
+    void deleteOrderByGoodsId(Integer id);
+
+    void deleteMessageByGoodsId(Integer id);
 }

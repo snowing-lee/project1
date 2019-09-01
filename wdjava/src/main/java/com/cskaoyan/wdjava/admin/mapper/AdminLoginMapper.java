@@ -20,4 +20,10 @@ public interface AdminLoginMapper {
     void updateAdminss(AdminLogin adminLogin);
 
     Integer accountaccount(String account);
+
+    void deleteOrderByUserId(Integer id);
+
+    void deleteMessageByUserId(Integer id);
+
+    void deleteReMessageByUserid(Integer id);
 }
