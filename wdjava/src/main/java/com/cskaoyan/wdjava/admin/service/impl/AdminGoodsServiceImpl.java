@@ -223,6 +223,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
         }
 
         baseRes.setCode(0);
+        baseRes.setData(addSpec);
         return baseRes;
     }
 
