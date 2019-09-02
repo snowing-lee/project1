@@ -153,4 +153,16 @@
         where id= #{id,jdbcType=INTEGER}
     </update>
 
+    <select id="selectGoodsDetailByGoodsId" parameterType="integer" resultType="string">
+        select specName
+        from goodsdetails
+        where goodsId = #{parseInt,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteSpec">
+        delete from  goodsdetails
+        where goodsId =  #{parseInt,jdbcType=INTEGER}
+        and specName = #{specName,jdbcType=VARCHAR}
+    </delete>
+
 </mapper>

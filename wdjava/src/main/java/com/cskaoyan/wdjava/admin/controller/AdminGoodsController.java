@@ -119,4 +119,19 @@ public class AdminGoodsController {
 
         return baseRes;
     }
+
+
+    @RequestMapping(value = "api/admin/deleteSpec" , method = RequestMethod.POST)
+    public BaseRes deleteSpec(@RequestBody AddSpec addSpec){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes = adminGoodsService.deleteSpec(addSpec);
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }finally {
+        }
+
+        return baseRes;
+    }
 }

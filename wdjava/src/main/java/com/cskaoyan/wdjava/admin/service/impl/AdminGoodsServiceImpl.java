@@ -205,9 +205,35 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
         specs.setStockNum(Integer.parseInt(addSpec.getStockNum()));
         specs.setUnitPrice(Float.parseFloat(addSpec.getUnitPrice()));
 
-        adminGoodsMapper.insertGoodsDetail(specs);
+        //先判断这个小规格是否存在(name要不同)
+        List<String> names  = adminGoodsMapper.selectGoodsDetailByGoodsId(Integer.parseInt(addSpec.getGoodsId()));
+        boolean bool = true;
 
-        baseRes.setStatus(200);
+        for (String name : names) {
+            if (name.equals(addSpec.getSpecName())){
+                bool = false;
+                baseRes.setCode(10000);
+                baseRes.setMessage("分类重复");
+                return baseRes;
+            }
+        }
+
+        if (bool){
+            adminGoodsMapper.insertGoodsDetail(specs);
+        }
+
+        baseRes.setCode(0);
+        return baseRes;
+    }
+
+    @Override
+    public BaseRes deleteSpec(AddSpec addSpec) throws Exception {
+        BaseRes baseRes = new BaseRes();
+        String goodsId = addSpec.getGoodsId();
+        String specName = addSpec.getSpecName();
+
+        adminGoodsMapper.deleteSpec(Integer.parseInt(goodsId),specName);
+
         return baseRes;
     }
 }

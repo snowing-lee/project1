@@ -24,4 +24,6 @@ public interface AdminGoodsService {
     public BaseRes updateGoods(UpdateGoods updateGoods) throws Exception;
 
     public BaseRes addSpec(AddSpec addSpec) throws Exception;
+
+    public BaseRes deleteSpec(AddSpec addSpec) throws Exception;
 }

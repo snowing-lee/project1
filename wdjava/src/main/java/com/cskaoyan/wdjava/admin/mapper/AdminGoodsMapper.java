@@ -41,4 +41,8 @@ public interface AdminGoodsMapper {
     void deleteOrderByGoodsId(Integer id);
 
     void deleteMessageByGoodsId(Integer id);
+
+    List<String> selectGoodsDetailByGoodsId(int parseInt);
+
+    void deleteSpec(int parseInt, String specName);
 }
