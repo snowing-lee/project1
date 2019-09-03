@@ -25,8 +25,8 @@
         <ul>
           <li v-for="(item,index) in specList" :key="index">
             <span>名称：</span><TextInput placeholder="请输入规格名称" v-model="item.specName" :initText="item.specName"/>
-            <span>库存量：</span><input type="text" class="numInput" v-model.trim.number="item.stockNum"/>
-            <span>价格：</span><input type="text" class="numInput" v-model.trim.number="item.unitPrice"/>
+            <span>库存量：</span><input type="text" class="numInput" v-model="item.stockNum"/>
+            <span>价格：</span><input type="text" class="numInput" v-model="item.unitPrice"/>
             <button v-show="specList.length>1" @click="deleteSpec(item.specName)"><i class="iconfont icon-close" /></button>
           </li>
           <li class="addSpec" @click="showPopup">添加规格</li>
@@ -79,8 +79,8 @@ export default {
       specList:[
         {
           specName:'默认',
-          stockNum:0,
-          unitPrice:0,
+          stockNum: '1',
+          unitPrice: '1',
         }
       ]
     }
