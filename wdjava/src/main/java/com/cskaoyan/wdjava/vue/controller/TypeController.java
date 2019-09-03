@@ -24,4 +24,16 @@ public class TypeController {
 
        return baseRes;
     }
+
+    @RequestMapping("/api/mall/getType")
+    public BaseRes getmallType(){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes = typeService.getType();
+        }catch (Exception e) {
+        }finally {
+        }
+
+        return baseRes;
+    }
 }

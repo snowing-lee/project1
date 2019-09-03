@@ -52,7 +52,7 @@ export function signup(data){
 
 //得到类目
 export function getTypes(){
-	const res = axios.get('/api/admin/getType');
+	const res = axios.get('/api/mall/getType');
   // const res = axios.get('/type/getType');
 	return new Promise((resolve,reject)=>{
 		res
