@@ -4,19 +4,24 @@
       class="avatar-uploader"
       :action="baseURL+'/api/admin/imgUpload'"
       :show-file-list="false"
+      :http-request="httpUpload"
       :on-success="handleAvatarSuccess"
+      :on-change="fileChange"
       :before-upload="beforeAvatarUpload">
       <img v-if="imageUrl" :src="imageUrl" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
+
   </div>
 </template>
 
 <script>
+import axios from '../config/axios-client';
 export default {
     name: 'ImgInput',
     data() {
         return {
+            file: undefined,
             imageUrl: '',
             imageUrlUpload: '',
             baseURL:''
@@ -26,12 +31,49 @@ export default {
         this.baseURL = this.$baseURL
     },
     methods: {
+        httpUpload() {
+            const fd = new FormData()
+            fd.append('file', this.file.raw)
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+
+            axios.post(this.baseURL+'/api/admin/imgUpload', fd, config)
+                .then((result)=>{
+                    if(result.status===200){
+                        return result.data;
+                    }else{
+                        alert('检查请求')
+                    }
+                })
+                .then((json)=>{
+                    if(json.code===0){
+                        this.imageUrl = URL.createObjectURL(this.file.raw)
+
+                        this.imageUrlUpload = json.data.url
+
+                        this.$emit('imageUrl',this.imageUrlUpload);
+                    }else{
+                        alert(json.message)
+                    }
+                })
+                .catch((e)=>{
+                    alert(e.toString())
+                })
+
+
+        },
+        fileChange(file) {
+            this.file = file
+        },
         handleAvatarSuccess(res, file) {
-
-            this.imageUrl = URL.createObjectURL(file.raw)
-
-            this.imageUrlUpload = res.data
-            this.$emit('imageUrl',this.imageUrlUpload);
+            // 方法已经废弃
+            // this.imageUrl = URL.createObjectURL(file.raw)
+            // this.imageUrlUpload = res.data
+            // this.$emit('imageUrl',this.imageUrlUpload);
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg'
