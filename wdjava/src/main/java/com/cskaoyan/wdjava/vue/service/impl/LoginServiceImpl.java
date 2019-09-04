@@ -118,4 +118,18 @@ public class LoginServiceImpl implements LoginService {
         baseRes.setCode(0);
         return baseRes;
     }
+
+    @Override
+    public BaseRes updateUserData(LoginReq loginReq) throws Exception {
+        BaseRes baseRes = new BaseRes();
+        Integer id = loginReq.getId();
+        String nickname = loginReq.getNickname();
+        String address = loginReq.getAddress();
+        String phone = loginReq.getPhone();
+        String recipient = loginReq.getRecipient();
+        loginMapper.updateUserData(loginReq);
+
+
+        return baseRes;
+    }
 }

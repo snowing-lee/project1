@@ -34,6 +34,15 @@
         )
     </insert>
 
+    <update id="updateUserData" parameterType="com.cskaoyan.wdjava.vue.vo.LoginReq">
+        update users
+        set nickname =  #{nickname,jdbcType=VARCHAR},
+        address =  #{address,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        recipient = #{recipient,jdbcType=VARCHAR}
+        where id = #{id, jdbcType=INTEGER}
+    </update>
+
 
     <resultMap id="BaseData" type="com.cskaoyan.wdjava.vue.vo.LoginRes">
         <result column="id" jdbcType="INTEGER" property="id"/>

@@ -18,4 +18,6 @@ public interface LoginMapper {
 
     void updatePwd(@Param("id") int parseInt,
                    @Param("newPwd") String newPwd);
+
+    void updateUserData(LoginReq loginReq);
 }

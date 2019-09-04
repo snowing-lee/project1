@@ -14,4 +14,7 @@ public interface LoginService {
     public BaseRes data(LoginReq loginReq) throws Exception;
 
     public BaseRes updatePwd(UpdatePwd updatePwd) throws Exception;
+
+    public BaseRes updateUserData(LoginReq loginReq) throws Exception;
+
 }

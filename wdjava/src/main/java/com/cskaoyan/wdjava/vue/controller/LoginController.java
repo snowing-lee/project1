@@ -63,4 +63,16 @@ public class LoginController {
         }
         return baseRes;
     }
+
+
+    @RequestMapping(value = "/api/user/updateUserData" , method = RequestMethod.POST)
+    public BaseRes updateUserData(@RequestBody LoginReq loginReq){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes = loginService.updateUserData(loginReq);
+        }catch (Exception e) {
+        }finally {
+        }
+        return baseRes;
+    }
 }

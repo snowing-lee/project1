@@ -3,7 +3,7 @@ package com.cskaoyan.wdjava.vue.vo;
 import com.cskaoyan.wdjava.base.BaseVo;
 
 public class LoginReq extends BaseVo {
-
+    private Integer id;
    private String account;
    private String pwd;
    private String token;
@@ -12,6 +12,14 @@ public class LoginReq extends BaseVo {
    private String nickname;
    private String phone;
    private String recipient;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getAddress() {
         return address;
