@@ -2,6 +2,7 @@ package com.cskaoyan.wdjava.vue.mapper;
 
 import com.cskaoyan.wdjava.vue.bean.Good;
 import com.cskaoyan.wdjava.vue.bean.Order;
+import com.cskaoyan.wdjava.vue.vo.CommentReq;
 import com.cskaoyan.wdjava.vue.vo.OrderReq;
 import com.cskaoyan.wdjava.vue.vo.OrderRes;
 import org.apache.ibatis.annotations.Param;
@@ -20,7 +21,7 @@ public interface OrderMapper {
 
     List<OrderRes> getOrderByState(OrderReq orderReq);
 
-    List<Integer> selectCommentByGoodsDetailId(Integer goodsDetailId);
+    List<Integer> selectCommentByOrderId(Integer id);
 
     Good selectGoodByGoodsDetailId(Integer goodsDetailId);
 
@@ -42,4 +43,8 @@ public interface OrderMapper {
                     @Param("less")Integer less);
 
     void overOrder(Integer id);
+
+    void confirmReceiveOrderById(Integer id);
+
+    void insertComment(CommentReq commentReq);
 }

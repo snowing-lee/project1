@@ -7,6 +7,7 @@ import com.cskaoyan.wdjava.vue.bean.Order;
 import com.cskaoyan.wdjava.vue.mapper.AskMapper;
 import com.cskaoyan.wdjava.vue.mapper.OrderMapper;
 import com.cskaoyan.wdjava.vue.service.OrderService;
+import com.cskaoyan.wdjava.vue.vo.CommentReq;
 import com.cskaoyan.wdjava.vue.vo.OrderReq;
 import com.cskaoyan.wdjava.vue.vo.OrderRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +77,9 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderRes order : orders) {
             Integer goodsDetailId = order.getGoodsDetailId();
+            Integer id = order.getId();
             // 判断是否有评论:"hasComment": false,
-            List<Integer> ids = orderMapper.selectCommentByGoodsDetailId(goodsDetailId);
+            List<Integer> ids = orderMapper.selectCommentByOrderId(id);
             if (ids!=null && ids.size()>0){
                 order.setHasComment(true);
             }else {
@@ -151,6 +153,40 @@ public class OrderServiceImpl implements OrderService {
 
         }
         baseRes.setCode(0);
+        return baseRes;
+    }
+
+    @Override
+    public BaseRes confirmReceive(OrderReq orderReq) throws Exception {
+        BaseRes baseRes = new BaseRes();
+        Integer id = orderReq.getId();
+
+        orderMapper.confirmReceiveOrderById(id);
+
+        return baseRes;
+    }
+
+
+
+
+    @Override
+    public BaseRes sendComment(CommentReq commentReq) throws Exception {
+        BaseRes baseRes = new BaseRes();
+
+        Integer orderId = commentReq.getOrderId();
+        Integer goodsId = commentReq.getGoodsId();
+        Integer goodsDetailId = commentReq.getGoodsDetailId();
+        String content = commentReq.getContent();
+        Integer score = commentReq.getScore();
+        String token = commentReq.getToken();
+
+        User userIdByNickName = askMapper.getUserIdByNickName(token);
+        Integer userId = userIdByNickName.getId();
+
+        commentReq.setUserId(userId);
+
+        orderMapper.insertComment(commentReq);
+
         return baseRes;
     }
 

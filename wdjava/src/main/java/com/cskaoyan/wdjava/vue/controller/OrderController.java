@@ -3,6 +3,7 @@ package com.cskaoyan.wdjava.vue.controller;
 import com.cskaoyan.wdjava.base.BaseRes;
 import com.cskaoyan.wdjava.vue.bean.Accounts;
 import com.cskaoyan.wdjava.vue.service.OrderService;
+import com.cskaoyan.wdjava.vue.vo.CommentReq;
 import com.cskaoyan.wdjava.vue.vo.OrderReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,5 +75,36 @@ public class OrderController {
         return baseRes;
     }
 
+
+
+    @RequestMapping(value = "/api/mall/confirmReceive" , method = RequestMethod.GET)
+    public BaseRes confirmReceive(OrderReq orderReq){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes =  orderService.confirmReceive(orderReq);
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }finally {
+        }
+        return baseRes;
+    }
+
+
+
+
+
+    @RequestMapping(value = "/api/mall/sendComment" , method = RequestMethod.POST)
+    public BaseRes sendComment(@RequestBody CommentReq commentReq){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes =  orderService.sendComment(commentReq);
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }finally {
+        }
+        return baseRes;
+    }
 
 }

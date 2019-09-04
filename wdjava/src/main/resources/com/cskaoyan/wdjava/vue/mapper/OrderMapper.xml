@@ -60,10 +60,10 @@
 
     </select>
 
-    <select id="selectCommentByGoodsDetailId" parameterType="integer" resultType="integer">
+    <select id="selectCommentByOrderId" parameterType="integer" resultType="integer">
         select t.id
         from  comments t
-        where t.goodsDetailId = #{goodsDetailId, jdbcType=INTEGER}
+        where t.orderId = #{id, jdbcType=INTEGER}
     </select>
 
     <resultMap id="BaseSGBGDI" type="com.cskaoyan.wdjava.vue.bean.Good">
@@ -135,5 +135,30 @@
         set o.state = 1
         where o.id =  #{id, jdbcType=INTEGER}
     </update>
+
+    <update id="confirmReceiveOrderById">
+        update orders o
+        set o.state = 3
+        where o.id =  #{id, jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertComment" parameterType="com.cskaoyan.wdjava.vue.vo.CommentReq">
+         insert into comments (
+                goodsId,
+                goodsDetailId,
+                userId,
+                orderId,
+                content,
+                score
+        )
+        values (
+                #{goodsId,jdbcType=INTEGER},
+                #{goodsDetailId,jdbcType=INTEGER},
+                #{userId,jdbcType=INTEGER},
+                #{orderId,jdbcType=INTEGER},
+                #{content,jdbcType=VARCHAR},
+                #{score,jdbcType=INTEGER}
+        )
+    </insert>
 
 </mapper>
