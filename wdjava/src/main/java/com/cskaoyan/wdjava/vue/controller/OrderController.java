@@ -107,4 +107,18 @@ public class OrderController {
         return baseRes;
     }
 
+
+    @RequestMapping(value = "/api/mall/pay" , method = RequestMethod.GET)
+    public BaseRes pay( OrderReq orderReq){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes =  orderService.pay(orderReq);
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }finally {
+        }
+        return baseRes;
+    }
+
 }

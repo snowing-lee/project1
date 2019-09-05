@@ -20,4 +20,6 @@ public interface OrderService {
     public BaseRes confirmReceive(OrderReq orderReq) throws Exception;
 
     public BaseRes sendComment(CommentReq commentReq) throws Exception;
+
+    public BaseRes pay(OrderReq orderReq)  throws Exception;
 }

@@ -190,4 +190,14 @@ public class OrderServiceImpl implements OrderService {
         return baseRes;
     }
 
+    @Override
+    public BaseRes pay(OrderReq orderReq) throws Exception {
+        BaseRes baseRes = new BaseRes();
+        Integer id = orderReq.getId();
+
+        orderMapper.payOrderById(id);
+
+        return baseRes;
+    }
+
 }

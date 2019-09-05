@@ -47,4 +47,6 @@ public interface OrderMapper {
     void confirmReceiveOrderById(Integer id);
 
     void insertComment(CommentReq commentReq);
+
+    void payOrderById(Integer id);
 }

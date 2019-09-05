@@ -161,4 +161,10 @@
         )
     </insert>
 
+    <update id="payOrderById" parameterType="integer">
+        update  orders
+        set  state = 1
+        where id =  #{id,jdbcType=INTEGER}
+    </update>
+
 </mapper>
