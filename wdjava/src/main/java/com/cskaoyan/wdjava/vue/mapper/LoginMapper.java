@@ -20,4 +20,6 @@ public interface LoginMapper {
                    @Param("newPwd") String newPwd);
 
     void updateUserData(LoginReq loginReq);
+
+    Login loginname(String nickname);
 }

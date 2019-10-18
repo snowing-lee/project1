@@ -53,8 +53,7 @@ export default {
                     if(json.code===0){
                         this.imageUrl = URL.createObjectURL(this.file.raw)
 
-                        this.imageUrlUpload = json.data.url
-
+                        this.imageUrlUpload = json.data
                         this.$emit('imageUrl',this.imageUrlUpload);
                     }else{
                         alert(json.message)

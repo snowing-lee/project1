@@ -13,7 +13,57 @@
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
 
     </resultMap>
-    <select id="getOrders" resultMap="BaseMap" parameterType="integer">
+    <select id="getOrders" resultMap="BaseMap" parameterType="com.cskaoyan.wdjava.admin.vo.AdminOrderReq">
+        select
+        id,
+        userId,
+        goodsDetailId,
+        goodsNum,
+        amount,
+        state as stateId,
+        updatetime
+        from orders
+        where 1 = 1
+        <if test="state == -1">
+
+        </if>
+        <if test="state != -1">
+            and state =  #{state,jdbcType=INTEGER}
+        </if>
+        <if test="id != null">
+            and id =  #{id,jdbcType=INTEGER}
+        </if>
+        <if test="moneyLimit1 != null">
+            and amount <![CDATA[<]]>  #{moneyLimit1,jdbcType=DOUBLE}
+        </if>
+        <if test="moneyLimit2 != null">
+            and amount <![CDATA[>]]>  #{moneyLimit2,jdbcType=DOUBLE}
+        </if>
+        <if test="goods != null and goods!='' ">
+            and goodsDetailId in
+            (
+            select gd.id
+            from goodsdetails gd , goods gs
+            where gd.goodsId = gs.id
+            and gs.name =  #{goods, jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="name != null and name!='' ">
+            and userId in
+            (
+            select id from users
+            where recipient = #{name,jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="address != null and address!='' ">
+            and goodsDetailId in
+            (
+            select id from users
+            where address = #{address,jdbcType=VARCHAR}
+            )
+        </if>
+    </select>
+    <select id="getOrdersfirst" resultMap="BaseMap" parameterType="integer">
        select
                 id,
                 userId,
@@ -31,7 +81,7 @@
         </if>
     </select>
 
-    <select id="ordersByPage" resultMap="BaseMap">
+    <select id="ordersByPage" resultMap="BaseMap" parameterType="com.cskaoyan.wdjava.admin.vo.AdminOrderReq">
         select
         id,
         userId,
@@ -41,11 +91,44 @@
         state as stateId,
         updatetime
         from orders
+        where 1 = 1
         <if test="state == -1">
 
         </if>
         <if test="state != -1">
-            where state =  #{state,jdbcType=INTEGER}
+            and state =  #{state,jdbcType=INTEGER}
+        </if>
+        <if test="id != null">
+            and id =  #{id,jdbcType=INTEGER}
+        </if>
+        <if test="moneyLimit1 != null">
+            and amount <![CDATA[<]]>  #{moneyLimit1,jdbcType=DOUBLE}
+        </if>
+        <if test="moneyLimit2 != null">
+            and amount <![CDATA[>]]>  #{moneyLimit2,jdbcType=DOUBLE}
+        </if>
+        <if test="goods != null and goods!='' ">
+            and goodsDetailId in
+            (
+            select gd.id
+            from goodsdetails gd , goods gs
+            where gd.goodsId = gs.id
+            and gs.name =  #{goods, jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="name != null and name!='' ">
+            and userId in
+            (
+            select id from users
+            where recipient = #{name,jdbcType=VARCHAR}
+            )
+        </if>
+        <if test="address != null and address!='' ">
+            and goodsDetailId in
+            (
+            select id from users
+            where address = #{address,jdbcType=VARCHAR}
+            )
         </if>
         order by createtime desc
         limit  #{limit,jdbcType=INTEGER}, #{pagesize,jdbcType=INTEGER}

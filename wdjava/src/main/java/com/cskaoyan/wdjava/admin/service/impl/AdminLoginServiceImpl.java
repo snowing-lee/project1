@@ -50,6 +50,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         BaseRes baseRes = new BaseRes();
         Integer id = loginReq.getId();
 
+        if (id != null && id == 1){
+            baseRes.setCode(1000);
+            baseRes.setMessage("你不能删除admin账号!");
+            return baseRes;
+        }
+
         // 同时删除对应留言等
         loginMapper.deleteOrderByUserId(id);
         loginMapper.deleteMessageByUserId(id);
@@ -64,6 +70,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public BaseRes deleteAdmins(AdminLoginReq loginReq) throws Exception {
         BaseRes baseRes = new BaseRes();
         Integer id = loginReq.getId();
+        if (id != null && id == 1){
+            baseRes.setCode(1000);
+            baseRes.setMessage("你不能删除admin账号!");
+            return baseRes;
+        }
 
         loginMapper.deleteAdmins(id);
 
@@ -79,6 +90,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         if (id != null && id>0 ){
             baseRes.setCode(10000);
             baseRes.setMessage("该账号不允许重复使用");
+            return baseRes;
+        }
+        id = null;
+        id = loginMapper.namemane(adminLogin.getName());
+        if (id != null && id>0 ){
+            baseRes.setCode(10000);
+            baseRes.setMessage("该用户名不允许重复使用");
             return baseRes;
         }
 
@@ -104,6 +122,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                 baseRes.setMessage("该账号不允许重复使用");
                 return baseRes;
             }
+        }
+        id = null;
+        id = loginMapper.namemane(adminLogin.getName());
+        if (id != null && id>0 ){
+            baseRes.setCode(10000);
+            baseRes.setMessage("该用户名不允许重复使用");
+            return baseRes;
         }
         String name = adminLogin.getName();
         String pwd = adminLogin.getPwd();

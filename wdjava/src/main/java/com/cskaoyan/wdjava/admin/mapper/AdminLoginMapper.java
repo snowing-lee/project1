@@ -26,4 +26,6 @@ public interface AdminLoginMapper {
     void deleteMessageByUserId(Integer id);
 
     void deleteReMessageByUserid(Integer id);
+
+    Integer namemane(String name);
 }

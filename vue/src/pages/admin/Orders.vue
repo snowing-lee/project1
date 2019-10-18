@@ -2,6 +2,25 @@
   <div class="Orders">
     <header class="clear">
   		<span>订单管理</span>
+      <div style="margin-right: 20px">
+        金额:<input ref="moneyLimit1" style="width: 90px;" type="text" placeholder="金额上限" />-
+        <input ref="moneyLimit2" style="width: 90px;" type="text" placeholder="金额下限" />
+        <button @click="getOrdersByPage(index)"><i class="iconfont icon-search" /></button>
+      </div>
+      <div style="margin-right: 20px">
+        商品:<input ref="goods" type="text" placeholder="商品" />
+      </div>
+      <div style="margin-right: 20px">
+        收货地址:<input ref="address" type="text" placeholder="收货地址" />
+      </div>
+      <div style="margin-right: 20px">
+        用户名:<input ref="name" type="text" placeholder="用户名" />
+      </div>
+
+      <div style="margin-right: 20px">
+        订单号:<input ref="id" type="text" placeholder="订单号" />
+      </div>
+
   	</header>
   	<Tag :tagList="tags" @indexChange="getOrdersByPage"/>
   	<div class="content">
@@ -81,10 +100,51 @@ export default {
         const currentPage = this.currentPage; // 第几页
         const pagesize = this.pagesize; // 页中有几条
 
+        const moneyLimit1 = this.$refs.moneyLimit1.value;
+        const moneyLimit2 = this.$refs.moneyLimit2.value;
+        const goods = this.$refs.goods.value;
+        const address = this.$refs.address.value;
+        const name = this.$refs.name.value;
+        const id = this.$refs.id.value;
+
+        if (moneyLimit1 != ''){
+            if (isNaN(moneyLimit1) ){
+                alert('金额上限必须为数值类型')
+                return
+            }
+        }
+        if (moneyLimit2 != ''){
+            if (isNaN(moneyLimit2) ){
+                alert('金额下限必须为数值类型')
+                return
+            }
+        }
+        if (id != ''){
+            if (isNaN(id) ){
+                alert('id必须为数值类型')
+                return
+            }else {
+                var _id = id + "";
+
+                if(_id.indexOf(".")==-1){
+                }else{
+                    alert('id必须为整数')
+                    return
+                }
+            }
+        }
+
+
         const res = getOrdersByPage({
             state,
             currentPage,
-            pagesize
+            pagesize,
+            moneyLimit1:moneyLimit1,
+            moneyLimit2:moneyLimit2,
+            goods:goods,
+            address:address,
+            name:name,
+            id:id
         });
         res.then((data)=>{
                 this.orderList = data.orders;
@@ -137,9 +197,31 @@ export default {
 		width: 100%;
 		height: 40px;
 		line-height: 40px;
+    margin-bottom: 10px;
 		span{
 			float: left;
 		}
+    div{
+      height: 20px;
+      float: right;
+      input{
+        border: none;
+        border-bottom: 1px solid #337da4;
+        background-color: rgba(0,0,0,0);
+        width: 100px;
+        padding-left: 10px;
+      }
+      button{
+        position: relative;
+        top: -1px;
+        border: none;
+        background-color: rgba(0,0,0,0);
+        i{
+          font-size: 17px;
+          color:#337da4;
+        }
+      }
+    }
 	}
 	.content{
 		width: 100%;

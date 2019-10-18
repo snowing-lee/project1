@@ -28,12 +28,20 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         Integer pagesize = adminOrderReq.getPagesize();//条目数
         Integer currentPage = adminOrderReq.getCurrentPage(); // 第几页
         Integer limit = pagesize*(currentPage-1);
+        adminOrderReq.setLimit(limit);
 
-        List<AdminOrderRes> totollist = adminOrderMapper.getOrders(state);
+        Integer id = adminOrderReq.getId();
+        String name = adminOrderReq.getName();
+        String address = adminOrderReq.getAddress();
+        String goods = adminOrderReq.getGoods();
+        Double moneyLimit1 = adminOrderReq.getMoneyLimit1();
+        Double moneyLimit2 = adminOrderReq.getMoneyLimit2();
+
+        List<AdminOrderRes> totollist = adminOrderMapper.getOrders(adminOrderReq);
         int total = totollist.size();
 
 
-        List<AdminOrderRes> list = adminOrderMapper.ordersByPage(state,limit,pagesize);
+        List<AdminOrderRes> list = adminOrderMapper.ordersByPage(adminOrderReq);
         for (AdminOrderRes adminOrderRes : list) {
             Integer stateId = adminOrderRes.getStateId();
             switch (stateId){
@@ -47,7 +55,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
                     adminOrderRes.setState("已发货");
                     break;
                 case 3:
-                    adminOrderRes.setState("已发货");
+                    adminOrderRes.setState("已到货");
                     break;
                 default:
                     adminOrderRes.setState("信息出错");
@@ -81,7 +89,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         BaseRes baseRes = new BaseRes();
         Integer state = adminOrderReq.getState();
 
-        List<AdminOrderRes> list = adminOrderMapper.getOrders(state);
+        List<AdminOrderRes> list = adminOrderMapper.getOrdersfirst(state);
         for (AdminOrderRes adminOrderRes : list) {
             Integer stateId = adminOrderRes.getStateId();
             switch (stateId){

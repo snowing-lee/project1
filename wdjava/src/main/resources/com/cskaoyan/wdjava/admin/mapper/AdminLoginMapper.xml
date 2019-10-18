@@ -79,4 +79,10 @@
         from admins
         where account = #{account,jdbcType=VARCHAR}
     </select>
+
+    <select id="namemane" parameterType="string" resultType="integer">
+        select id
+        from admins
+        where `name` = #{name,jdbcType=VARCHAR}
+    </select>
 </mapper>

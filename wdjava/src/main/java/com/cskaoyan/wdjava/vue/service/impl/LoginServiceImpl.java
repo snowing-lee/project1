@@ -58,6 +58,13 @@ public class LoginServiceImpl implements LoginService {
             baseRes.setMessage("该账号已存在!");
             return baseRes;
         }
+        login = null;
+        login = loginMapper.loginname(loginReq.getNickname());
+        if (login!=null){
+            baseRes.setCode(10000);
+            baseRes.setMessage("该用户名已存在!");
+            return baseRes;
+        }
 
         try {
             loginMapper.signup(loginReq);

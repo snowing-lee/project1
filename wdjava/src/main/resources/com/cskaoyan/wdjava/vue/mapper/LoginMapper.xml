@@ -14,6 +14,10 @@
        select g.id,  g.email,  g.pwd,  g.nickname from users g
         where g.email =  #{account,jdbcType=VARCHAR}
     </select>
+    <select id="loginname" resultMap="BaseMap" parameterType="string">
+       select g.id,  g.email,  g.pwd,  g.nickname from users g
+        where g.nickname =  #{nickname,jdbcType=VARCHAR}
+    </select>
 
     <insert id="signup" parameterType="com.cskaoyan.wdjava.vue.vo.LoginReq">
         insert into users (
