@@ -44,10 +44,10 @@ logging:
           mapper: debug
 wd:
    uploadPath: /usr/local/project1/
-#      uploadPath: c:/usr/file/image/
+#   uploadPath: c:/img/
 
 img:
   urlIp: 192.168.2.100
-#    urlIp: 192.168.0.102
+#  urlIp: 192.168.0.102
 
 

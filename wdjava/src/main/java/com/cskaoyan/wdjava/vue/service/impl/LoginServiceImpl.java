@@ -50,7 +50,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public BaseRes signup(LoginReq loginReq) throws Exception {
         BaseRes baseRes = new BaseRes();
-        String account = loginReq.getAccount();
+        String account = loginReq.getEmail();
         Login login = loginMapper.login(account);
 
         if (login!=null){

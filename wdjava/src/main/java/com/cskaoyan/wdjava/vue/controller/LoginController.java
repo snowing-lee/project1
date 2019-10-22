@@ -35,6 +35,8 @@ public class LoginController {
         try{
             baseRes = loginService.signup(loginReq);
         }catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
         }finally {
         }
 

@@ -4,7 +4,7 @@ import * as types from '../store/mutation-types'
 import router from '../router/client'
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 500000;
 // axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.baseURL = 'http://localhost:8084';
 // axios.defaults.baseURL = 'http://192.168.2.100:8084';
