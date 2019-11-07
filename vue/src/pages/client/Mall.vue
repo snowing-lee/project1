@@ -2,7 +2,7 @@
   <div class="Mall">
     <header>
       <div class="container clear">
-        <span class="title" @click="navTo('/mall')">MoreMall 一站式选购平台</span>
+        <span class="title" @click="navTo('/mall')">Online Mart 生活所选</span>
         <NoticeList :notices="notices"/>
         <div class="right" v-if="clientToken">
           <span class="name">欢迎您，{{clientName}}</span>
@@ -19,27 +19,7 @@
       <div class="container">
         <router-view></router-view>
       </div>
-      <div class="fixedAd">
-        <img src="../../assets/img/index2.gif" alt="" />
-        <ul class="fixedList">
-          <li>
-            <i class="iconfont icon-collection_fill" />
-            <span>新人有礼</span>
-          </li>
-          <li>
-            <i class="iconfont icon-paixing-copy" />
-            <span>热门商品</span>
-          </li>
-          <li>
-            <i class="iconfont icon-fabulous" />
-            <span>用户反馈</span>
-          </li>
-          <li @click="backToTop" v-show="shouldShowBT">
-            <i class="iconfont icon-arrows-4-7" />
-            <span>回顶部</span>
-          </li>
-        </ul>
-      </div>
+
     </div>
     <div class="bottomInfo">
       <div class="container">
@@ -49,8 +29,8 @@
           <span><i class="iconfont icon-fabulous" />用户反馈</span>
         </div>
         <div class="intro footerItem">
-          <p class="title">何为MoreMall</p>
-          <p class="intro-p">MoreMall原创生活类电商品牌，秉承网易一贯的严谨态度，我们深入世界各地，从源头全程严格把控商品生产环节，力求帮消费者甄选到优质的商品</p>
+          <p class="title">何为Online Mart</p>
+          <p class="intro-p">Online Mart原创生活类电商品牌，秉承网易一贯的严谨态度，我们深入世界各地，从源头全程严格把控商品生产环节，力求帮消费者甄选到优质的商品</p>
           <div>
             关注我们：
             <img src="http://yanxuan.nosdn.127.net/60068701f3a380911f237c26c91b39d0.png" alt=""/>
@@ -118,7 +98,7 @@ export default {
   },
   data () {
     return {
-      notices:['今日疯抢：牛皮防水男靴仅229元！直减2...','【福利】领1000元APP新人礼'],
+      notices:['特别消息:生鲜大放送......',' 注册即可获千元好礼......','美味大闸蟹,源自阳澄湖......'],
       clientHeight:getClientSize().height,
       shouldShowBT:false
     }

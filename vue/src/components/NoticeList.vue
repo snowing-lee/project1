@@ -65,7 +65,7 @@ export default {
       line-height: 36px;
       a{
         color:@thirdColor;
-        text-decoration: underline;
+        /*text-decoration: underline;*/
         font-size: 12px;
         &:hover{
           color:white;

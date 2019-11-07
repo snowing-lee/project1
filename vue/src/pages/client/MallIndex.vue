@@ -1,9 +1,9 @@
 <template>
   <div class="MallIndex">
     <FadeSwiper class="swiperBox" :width="clientWidth" height="420px">
-      <img class="banner" slot="item1" src="../../assets/img/banner3.jpg" />
-      <img class="banner" slot="item2" src="../../assets/img/banner2.jpg" />
-      <img class="banner" slot="item3" src="../../assets/img/banner1.jpg" />
+      <img class="banner" slot="item1" src="../../assets/img/1.png" />
+      <img class="banner" slot="item2" src="../../assets/img/2.jpg" />
+      <img class="banner" slot="item3" src="../../assets/img/3.png" />
     </FadeSwiper>
     <section class="newGoods section">
       <SectionHeader title="新品首发" tips="周一周四上新，为你寻觅世间好物" moreText="更多新品>"/>
@@ -260,7 +260,7 @@ export default {
   .swiperBox{
     position: absolute;
     left: 0;
-    top: 230px;
+    top: 80px;
     margin-top: 20px;
     display: block;
     box-shadow: 0 -1px 2px rgba(0,0,0,0.2);

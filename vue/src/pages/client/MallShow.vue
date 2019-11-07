@@ -2,7 +2,7 @@
   <div class="MallShow">
     <FixedNav v-show="navShouldFixed">
       <div slot="navContent" class="container fixedNavContainer">
-        <h3 class="fixedLeft" @click="navTo('/mall/show/index')">MoreMall</h3>
+        <h3 class="fixedLeft" @click="navTo('/mall/show/index')">Online Mart</h3>
         <ul class="fixedRight">
           <li
             v-for="(item,index) in typeList"
@@ -15,19 +15,19 @@
         </ul>
       </div>
     </FixedNav>
-    <div class="logo">
-      <img src="../../assets/img/index1.gif"/>
-      <div class="searchBox">
-        <TipsInput
-          placeholder="请输入商品关键字"
-          :tips="tips"
-          @tipsChosen="searchTip"
-          ref="TipsInput"
-          v-model="searchText"
-        />
-        <i class="iconfont icon-search" @click="searchConfirm"/>
-      </div>
-    </div>
+<!--    <div class="logo">-->
+<!--      <img src="../../assets/img/index1.gif"/>-->
+<!--      <div class="searchBox">-->
+<!--        <TipsInput-->
+<!--          placeholder="请输入商品关键字"-->
+<!--          :tips="tips"-->
+<!--          @tipsChosen="searchTip"-->
+<!--          ref="TipsInput"-->
+<!--          v-model="searchText"-->
+<!--        />-->
+<!--        <i class="iconfont icon-search" @click="searchConfirm"/>-->
+<!--      </div>-->
+<!--    </div>-->
     <ul ref="typeList" class="typeList">
       <li
         v-for="(item,index) in typeList"
@@ -64,6 +64,7 @@ export default {
       searchText:'',
       tips:['aa','bb','cc'],
       navShouldFixed:false,
+      datamid: ''
     }
   },
 
@@ -87,6 +88,42 @@ export default {
       }
     },
     selectType(typeId){
+
+        var tag = 0
+        for (const obj of this.datamid) {
+            tag = tag + 1
+            if (obj.id == typeId){
+                if (tag < 4){
+                    // 不做任何操作
+                    break;
+                }else {
+                    if ((this.datamid.length - tag) <3){
+                        // 倒序
+                        this.typeList = this.datamid.slice(this.datamid.length - 6 , this.datamid.length );
+                        if (this.typeList[0].id == -1){
+                        }else {
+                            this.typeList.unshift({
+                                id:-1,
+                                name:'首页'
+                            });
+                        }
+                        break
+                    }else {
+                        // 移动
+                        this.typeList = this.datamid.slice(tag-3, tag+3);
+                        if (this.typeList[0].id == -1){
+                        }else {
+                            this.typeList.unshift({
+                                id:-1,
+                                name:'首页'
+                            });
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
       //首页
       if(typeId===-1){
         this.navTo('/mall/show/index');
@@ -128,7 +165,14 @@ export default {
         id:-1,
         name:'首页'
       });
-      this.typeList = data;
+      console.log(data)
+      console.log(data.length)
+      this.datamid  = data;
+      if ( data.length>7 ){
+          this.typeList = data.slice(0, 7);
+      }else {
+          this.typeList = data;
+      }
     })
     .catch((e)=>{
       alert(e);
@@ -184,6 +228,7 @@ export default {
   }
   .typeList{
     width: 100%;
+    margin-top: 20px;
     text-align: center;
     background-color: white;
     li{
@@ -196,6 +241,9 @@ export default {
       font-weight: 600;
       font-size: 14px;
       cursor: pointer;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap
     }
     .selected{
       color:@thirdColor;
@@ -209,7 +257,7 @@ export default {
       vertical-align: middle;
       width: 15%;
       height: 100%;
-      font-size:30px;
+      font-size:18px;
       color:@thirdColor;
       user-select: none;
       line-height: 64px;
@@ -233,6 +281,9 @@ export default {
         cursor: pointer;
         position: relative;
         top: 4px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap
       }
       .selected{
         color:@thirdColor;
