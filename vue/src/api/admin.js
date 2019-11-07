@@ -697,3 +697,28 @@ export function deleteGoods(id){
 	    })
 	})
 }
+
+//删除指定分类
+export function deleteType(id){
+  const res = axios.get('/api/admin/deleteType?typeId='+id);
+  return new Promise((resolve,reject)=>{
+    res
+      .then((result)=>{
+        if(result.status===200){
+          return result.data;
+        }else{
+          reject(result.status)
+        }
+      })
+      .then((json)=>{
+        if(json.code===0){
+          resolve();
+        }else{
+          reject(json.message);
+        }
+      })
+      .catch((e)=>{
+        reject(e.toString())
+      })
+  })
+}

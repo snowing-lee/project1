@@ -169,8 +169,6 @@ export default {
         id:-1,
         name:'首页'
       });
-      console.log(data)
-      console.log(data.length)
       this.datamid  = data;
       if ( data.length>7 ){
           this.typeList = data.slice(0, 7);

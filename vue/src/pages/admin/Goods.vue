@@ -21,6 +21,13 @@
   					点击增加商品
   				</div>
   			</li>
+        <li>
+          <div class="addGoods" @click="deleteType()">
+            <div>-</div>
+            删除该类目
+          </div>
+        </li>
+
   		</ul>
   	</div>
   	<Popup title="增加类目" @popupClose="closePopup" v-show="popupShow">
@@ -33,7 +40,7 @@
 </template>
 
 <script>
-import {getGoods,getTypes,addType,deleteGoods} from '../../api/admin';
+import {getGoods,getTypes,addType,deleteGoods,deleteType} from '../../api/admin';
 import Tag from '../../components/Tag';
 import Popup from '../../components/Popup';
 export default {
@@ -56,12 +63,29 @@ export default {
   		tags:[],
   		goodsList:[],
   		popupShow:false,
-  		curIndex:0
+  		curIndex:0,
+      tagNow: ''
   	}
   },
   methods:{
+    deleteType(){
+        alert('此操作将记录ip(所以一定要删除的是自己添加的分类,不要删除别人创建的分类)')
+        if (confirm('是否要删除(分类相关商品,评论,订单将同步删除)分类:'+this.tagNow.name)){
+            alert('即将执行删除操作')
+            const res = deleteType(this.tagNow.id);
+            res.then((res)=>{
+                    alert('删除成功！请刷新');
+                })
+                .catch((e)=>{
+                    alert(e);
+                })
+        }else {
+            alert('已取消删除')
+        }
+    },
   	changeTag(index){
   		this.curIndex = index;
+  		this.tagNow = this.tags[index]
   		const res = getGoods(this.tags[index].id);
   		res
   		.then((goods)=>{

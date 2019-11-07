@@ -7,6 +7,7 @@ import com.cskaoyan.wdjava.vue.bean.Good;
 import com.cskaoyan.wdjava.vue.bean.Specs;
 import com.cskaoyan.wdjava.vue.vo.GoodRes;
 import com.cskaoyan.wdjava.vue.vo.TypeRes;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -45,4 +46,10 @@ public interface AdminGoodsMapper {
     List<String> selectGoodsDetailByGoodsId(int parseInt);
 
     void deleteSpec(int parseInt, String specName);
+
+    void deleteCommentsByGoodsId(Integer id);
+
+    void deleteType(Integer typeId);
+
+    void insertDeleteTypeIp(@Param("ip") String ip, @Param("deleteTypeName") String deleteTypeName);
 }

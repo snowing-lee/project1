@@ -165,4 +165,22 @@
         and specName = #{specName,jdbcType=VARCHAR}
     </delete>
 
+    <delete id="deleteCommentsByGoodsId" parameterType="integer">
+        delete from comments
+        where goodsId = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteType" parameterType="integer">
+        delete from types
+        where id = #{typeId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertDeleteTypeIp">
+        insert into ip_record (ip, explan)
+        values (
+             #{ip,jdbcType=INTEGER},
+             #{deleteTypeName,jdbcType=VARCHAR}
+        )
+    </insert>
+
 </mapper>

@@ -10,6 +10,7 @@ import com.cskaoyan.wdjava.admin.vo.AdminGoodsReq;
 import com.cskaoyan.wdjava.base.BaseRes;
 import com.cskaoyan.wdjava.vue.bean.Good;
 import com.cskaoyan.wdjava.vue.bean.Specs;
+import com.cskaoyan.wdjava.admin.mapper.AdminLoginMapper;
 import com.cskaoyan.wdjava.vue.vo.GoodRes;
 import com.cskaoyan.wdjava.vue.vo.TypeRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 
     @Autowired
     AdminGoodsMapper adminGoodsMapper;
+
+    @Autowired
+    AdminLoginMapper loginMapper;
 
     @Value("${img.urlIp}")
     String urlIp;
@@ -235,6 +240,48 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 
         adminGoodsMapper.deleteSpec(Integer.parseInt(goodsId),specName);
 
+        return baseRes;
+    }
+
+    @Override
+    public BaseRes deleteType(AdminGoodsReq adminGoodsReq, HttpServletRequest httpServletRequest) throws Exception {
+        String ip = httpServletRequest.getRemoteAddr();
+        List<TypeRes> types = adminGoodsMapper.getType();
+        Integer typeId = adminGoodsReq.getTypeId();
+        String deleteTypeName = new String();
+        for (TypeRes type : types) {
+            if (type.getId().intValue() == typeId.intValue()){
+                deleteTypeName = type.getName();
+            }
+        }
+
+        adminGoodsMapper.insertDeleteTypeIp(ip,"删除分类------:" + deleteTypeName);
+
+
+
+
+        List<GoodRes> list = adminGoodsMapper.getGoodsByType(typeId);
+        // 删除分类之前,要删除: 评论--->商品明细--->商品--->订单
+        // 删除分类之前,要删除:  商品问答-->商品问答回复-->商品
+        // 删除分类之前,要删除:  订单-->商品
+        // 删除分类之前,要删除:  商品
+        // 删除分类之前,要删除:  分类
+        for (GoodRes goodRes : list) {
+            Integer id = goodRes.getId(); // goods  ---->  id
+
+            adminGoodsMapper.deleteMessageByGoodsId(id);  // 删除提问
+            loginMapper.deleteReMessageByUserid(id);      // 删除回复
+
+            adminGoodsMapper.deleteCommentsByGoodsId(id); // 删除评论
+
+            adminGoodsMapper.deleteGoodsDetailById(id);   //  删除小分类
+            adminGoodsMapper.deleteGoodsById(id);         //  删除商品
+
+        }
+
+        adminGoodsMapper.deleteType(typeId);
+
+        BaseRes baseRes = new BaseRes();
         return baseRes;
     }
 }

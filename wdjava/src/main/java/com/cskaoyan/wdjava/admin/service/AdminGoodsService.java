@@ -7,6 +7,8 @@ import com.cskaoyan.wdjava.admin.bean.UpdateGoods;
 import com.cskaoyan.wdjava.admin.vo.AdminGoodsReq;
 import com.cskaoyan.wdjava.base.BaseRes;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface AdminGoodsService {
 
     public BaseRes getType() throws Exception;
@@ -26,4 +28,6 @@ public interface AdminGoodsService {
     public BaseRes addSpec(AddSpec addSpec) throws Exception;
 
     public BaseRes deleteSpec(AddSpec addSpec) throws Exception;
+
+    public BaseRes deleteType(AdminGoodsReq adminGoodsReq, HttpServletRequest httpServletRequest) throws Exception;
 }

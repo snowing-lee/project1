@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class AdminGoodsController {
 
@@ -38,6 +40,19 @@ public class AdminGoodsController {
         BaseRes baseRes = new BaseRes();
         try{
             baseRes = adminGoodsService.addType(adminGoodsReq);
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }finally {
+        }
+
+        return baseRes;
+    }
+    @RequestMapping(value = "/api/admin/deleteType" , method = RequestMethod.GET)
+    public BaseRes deleteType(AdminGoodsReq adminGoodsReq, HttpServletRequest httpServletRequest){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes = adminGoodsService.deleteType(adminGoodsReq, httpServletRequest);
         }catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
