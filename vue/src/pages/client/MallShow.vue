@@ -91,10 +91,14 @@ export default {
 
         var tag = 0
         for (const obj of this.datamid) {
+            if (this.datamid.length < 7){
+                break
+            }
             tag = tag + 1
             if (obj.id == typeId){
                 if (tag < 4){
                     // 不做任何操作
+                    this.typeList = this.datamid.slice(0, 7);
                     break;
                 }else {
                     if ((this.datamid.length - tag) <3){
