@@ -10,8 +10,8 @@
           <span @click="logout">退出登录</span>
         </div>
         <div class="right" v-else>
-          <span @click="navTo('/login')">登录</span>
-          <span @click="navTo('/login')">注册</span>
+          <span @click="navTo('MallLogin', 'login')">登录</span>
+          <span @click="navTo('MallLogin', 'register')">注册</span>
         </div>
       </div>
     </header>
@@ -113,8 +113,8 @@ export default {
     ...mapMutations({
       clientLogout: 'CLIENT_LOGOUT',
     }),
-    navTo(route){
-      this.$router.push(route)
+    navTo(route, parm1){
+      this.$router.push({name: route, params: {parm: parm1}})
     },
     logout(){
       this.clientLogout();
@@ -124,7 +124,6 @@ export default {
           token:aaaa
       });
       res.then(()=>{
-          alert('chenggong')
       })
       .catch((e)=>{
           alert(e);

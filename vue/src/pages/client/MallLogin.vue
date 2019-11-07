@@ -44,6 +44,13 @@ export default {
       curIndex:0
     }
   },
+  created(){
+      if (this.$route.params.parm == 'login'){
+          this.curIndex = 0
+      }else if (this.$route.params.parm == 'register') {
+          this.curIndex = 1
+      }
+  },
   methods:{
     ...mapMutations({
       setClientName: 'SET_CLIENT_NAME',

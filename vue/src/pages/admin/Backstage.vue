@@ -80,7 +80,6 @@ export default {
             token:aaaa,
         });
         res.then(()=>{
-            alert('chenggong')
         })
         .catch((e)=>{
             alert(e);
