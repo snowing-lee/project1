@@ -19,4 +19,6 @@ public interface AdminLoginService {
     public BaseRes addAdminss(AdminLogin adminLogin) throws Exception;
 
     public BaseRes updateAdminss(AdminLogin adminLogin) throws Exception;
+
+    public BaseRes logoutAdmin(AdminLoginReq loginReq) throws Exception;
 }

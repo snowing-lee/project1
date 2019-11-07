@@ -66,6 +66,17 @@ public class LoginController {
         return baseRes;
     }
 
+    @RequestMapping(value = "/api/mall/logoutClient" , method = RequestMethod.POST)
+    public BaseRes logoutClient(@RequestBody LoginReq loginReq){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes = loginService.logoutClient(loginReq);
+        }catch (Exception e) {
+        }finally {
+        }
+        return baseRes;
+    }
+
 
     @RequestMapping(value = "/api/user/updateUserData" , method = RequestMethod.POST)
     public BaseRes updateUserData(@RequestBody LoginReq loginReq){

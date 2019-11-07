@@ -32,17 +32,20 @@
 <script>
 import { mapState,mapMutations } from 'vuex';
 import {getClientSize} from '../../util/util';
+import {logoutAdmin} from '../../api/admin';
 export default {
   name: 'Backstage',
   data(){
     return{
       userTipsShow:false,
-      curPath:this.$route.path
+      curPath:this.$route.path,
+      token: ''
     }
   },
   computed:{
     ...mapState([
-      'adminName'
+      'adminName',
+      'adminToken'
     ]),
     width(){
       return getClientSize().width;
@@ -50,6 +53,9 @@ export default {
     height(){
       return getClientSize().height;
     },
+  },
+  created(){
+      this.token = this.adminToken
   },
   methods:{
     ...mapMutations({
@@ -69,6 +75,16 @@ export default {
     },
     logout(){
       this.adminLogout();
+        var aaaa = this.token
+        const res = logoutAdmin({
+            token:aaaa,
+        });
+        res.then(()=>{
+            alert('chenggong')
+        })
+        .catch((e)=>{
+            alert(e);
+        })
       this.$router.push('/login');
     }
   },

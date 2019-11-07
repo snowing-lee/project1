@@ -84,6 +84,7 @@
 import { mapState,mapMutations } from 'vuex';
 import NoticeList from '../../components/NoticeList';
 import {getClientSize,backToTop} from '../../util/util';
+import {logoutClient} from '../../api/client';
 
 export default {
   name: 'Mall',
@@ -93,6 +94,9 @@ export default {
       'clientName'
     ]),
   },
+  created(){
+    this.token = this.clientToken
+  },
   components:{
     NoticeList
   },
@@ -100,7 +104,8 @@ export default {
     return {
       notices:['特别消息:生鲜大放送......',' 注册即可获千元好礼......','美味大闸蟹,源自阳澄湖......'],
       clientHeight:getClientSize().height,
-      shouldShowBT:false
+      shouldShowBT:false,
+      token:''
     }
   },
 
@@ -113,6 +118,17 @@ export default {
     },
     logout(){
       this.clientLogout();
+
+      var aaaa = this.token
+      const res = logoutClient({
+          token:aaaa
+      });
+      res.then(()=>{
+          alert('chenggong')
+      })
+      .catch((e)=>{
+          alert(e);
+      })
       this.$router.go(0);
     },
     backToTop(){

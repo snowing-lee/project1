@@ -139,4 +139,11 @@ public class LoginServiceImpl implements LoginService {
 
         return baseRes;
     }
+
+    @Override
+    public BaseRes logoutClient(LoginReq loginReq) throws Exception {
+
+        BaseRes baseRes = new BaseRes();
+        return baseRes;
+    }
 }

@@ -31,6 +31,21 @@ public class AdminLoginController {
        return baseRes;
     }
 
+
+    @RequestMapping(value = "/api/admin/logoutAdmin" , method = RequestMethod.POST)
+    public BaseRes logoutAdmin(@RequestBody AdminLoginReq loginReq){
+        BaseRes baseRes = new BaseRes();
+        try{
+            baseRes = loginService.logoutAdmin(loginReq);
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }finally {
+        }
+
+        return baseRes;
+    }
+
     @RequestMapping(value = "/api/admin/deleteAdmins" , method = RequestMethod.GET)
     public BaseRes deleteAdmins(AdminLoginReq loginReq){
         BaseRes baseRes = new BaseRes();

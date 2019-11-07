@@ -722,3 +722,29 @@ export function deleteType(id){
       })
   })
 }
+
+// 退出登录
+export function logoutAdmin(data){
+  const res = axios.post('/api/admin/logoutAdmin',data);
+  return new Promise((resolve,reject)=>{
+    res
+      .then((result)=>{
+        if(result.status===200){
+          return result.data;
+        }else{
+          reject(result.status)
+        }
+      })
+      .then((json)=>{
+        if(json.code===0){
+          resolve();
+        }else{
+          reject(json.message);
+        }
+      })
+      .catch((e)=>{
+        reject(e.toString())
+      })
+  })
+}
+

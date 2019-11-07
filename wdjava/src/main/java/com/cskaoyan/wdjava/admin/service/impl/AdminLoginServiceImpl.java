@@ -140,6 +140,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     }
 
     @Override
+    public BaseRes logoutAdmin(AdminLoginReq loginReq) throws Exception {
+        BaseRes baseRes = new BaseRes();
+        return baseRes;
+    }
+
+    @Override
     public BaseRes changePwd(ChangePwd changePwd) throws Exception {
         BaseRes baseRes = new BaseRes();
         String adminToken = changePwd.getAdminToken();
