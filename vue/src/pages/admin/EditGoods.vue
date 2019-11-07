@@ -198,8 +198,11 @@ export default {
   mounted(){
     this.getTypes();
     //新建商品
-    if(this.id==='new'){
-
+    if(this.id.indexOf('new') !== -1){
+        var words = this.id.split('=')
+        // alert(words[words.length-1])
+        this.temTypeId = words[words.length-1]
+        this.initTypeId = words[words.length-1]
     }else{
       const res = getGoodsInfo(this.id);
       res

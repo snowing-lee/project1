@@ -127,6 +127,9 @@ export default {
   		})
   	},
   	navTo(route){
+      if (route == '/backstage/goods/new'){
+        route = route + 'id='+ this.tagNow.id
+      }
   		this.$router.push(route);
   	},
     deleteGoods(id){
