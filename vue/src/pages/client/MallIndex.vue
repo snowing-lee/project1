@@ -6,7 +6,7 @@
       <img class="banner" slot="item3" src="../../assets/img/3.png" />
     </FadeSwiper>
     <section class="newGoods section">
-      <SectionHeader title="新品首发" tips="周一周四上新，为你寻觅世间好物" moreText="更多新品>"/>
+      <SectionHeader title="新品上市" tips="热卖新品" moreText="更多新品>"/>
       <Slick
         :ulWidth="(266*goodsList.length)+(10*(goodsList.length-1))"
         :showWidth="(266*4)+(10*3)"
@@ -292,6 +292,7 @@ export default {
         height: 100%;
         position: relative;
         background-image: url(//yanxuan.nosdn.127.net/c9aeb62a3f79123d793d8c49b6698b09.jpg);
+        /*background-image: url('../../assets/img/time.jpg');*/
         background-repeat: no-repeat;
         background-size: 100%;
         text-align: center;

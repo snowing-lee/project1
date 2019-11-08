@@ -2,11 +2,11 @@
   <div class="Mall">
     <header>
       <div class="container clear">
-        <span class="title" @click="navTo('/mall')">Online Mart 生活所选</span>
+        <span class="title" @click="navTo1('/mall')">Online Mart 生活所选</span>
         <NoticeList :notices="notices"/>
         <div class="right" v-if="clientToken">
           <span class="name">欢迎您，{{clientName}}</span>
-          <span @click="navTo('/mall/personal')">个人中心</span>
+          <span @click="navTo1('/mall/personal')">个人中心</span>
           <span @click="logout">退出登录</span>
         </div>
         <div class="right" v-else>
@@ -113,6 +113,9 @@ export default {
     ...mapMutations({
       clientLogout: 'CLIENT_LOGOUT',
     }),
+    navTo1(route){
+        this.$router.push(route);
+    },
     navTo(route, parm1){
       this.$router.push({name: route, params: {parm: parm1}})
     },
