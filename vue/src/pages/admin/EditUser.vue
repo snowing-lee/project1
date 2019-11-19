@@ -14,14 +14,13 @@
   	</header>
 	<table className="userTable">
         <thead>
-        	<tr><th>用户ID</th><th>email</th><th>昵称</th><th>性别</th><th>收件人</th><th>收货地址</th><th>联系电话</th><th>操作</th></tr>
+        	<tr><th>ID</th><th>email</th><th>昵称</th><th>收件人</th><th>收货地址</th><th>联系电话</th><th>操作</th></tr>
         </thead>
         <tbody>
             <tr v-for="(item,index) in userList" :key="'user'+item.id">
                 <td>{{item.id}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.nickname}}</td>
-                <td>{{item.sex}}</td>
                 <td>{{item.recipient}}</td>
                 <td>{{item.address}}</td>
                 <td>{{item.phone}}</td>
