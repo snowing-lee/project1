@@ -87,7 +87,6 @@ export default {
             alert("邮箱正则验证未通过!")
             return;
         }
-
         //只能包括数字字母的组合，长度为4-15位
         let testNickName = /^[A-Za-z0-9]{4,15}$/;
         if (!testNickName.test(this.$refs.signName.value)){
@@ -100,7 +99,6 @@ export default {
             alert("密码正则验证未通过!")
             return;
         }
-
         //中文正则验证
         let cnChina = /[\u4E00-\u9FA5]/;
         if (!cnChina.test(this.$refs.signAddress.value)){

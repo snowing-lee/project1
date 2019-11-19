@@ -5,7 +5,7 @@ import router from '../router/admin'
 
 // axios.defaults.withCredentials = true
 // axios 配置
-axios.defaults.timeout = 100000;
+axios.defaults.timeout = 600000;
 // axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.baseURL = 'http://localhost:8084';
 // axios.defaults.baseURL = 'http://192.168.2.100:8084';

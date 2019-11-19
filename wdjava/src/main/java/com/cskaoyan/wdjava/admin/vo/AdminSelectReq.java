@@ -1,5 +1,7 @@
 package com.cskaoyan.wdjava.admin.vo;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class AdminSelectReq {
 
     private String account;

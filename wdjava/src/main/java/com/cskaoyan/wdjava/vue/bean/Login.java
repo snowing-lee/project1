@@ -1,5 +1,7 @@
 package com.cskaoyan.wdjava.vue.bean;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Login {
 
     private String email;

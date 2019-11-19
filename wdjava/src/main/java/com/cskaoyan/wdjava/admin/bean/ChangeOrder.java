@@ -1,5 +1,7 @@
 package com.cskaoyan.wdjava.admin.bean;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ChangeOrder {
     private String id;
     private Integer num;

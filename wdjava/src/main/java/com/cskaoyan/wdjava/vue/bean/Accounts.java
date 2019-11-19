@@ -3,7 +3,9 @@ package com.cskaoyan.wdjava.vue.bean;
 import com.cskaoyan.wdjava.vue.vo.OrderReq;
 
 import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Accounts {
 
     List<OrderReq> cartList;

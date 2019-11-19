@@ -1,7 +1,9 @@
 package com.cskaoyan.wdjava.admin.vo;
 
 import com.cskaoyan.wdjava.admin.bean.OrdersLimit;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class AdminOrderReq  extends OrdersLimit {
 
     private Integer state;

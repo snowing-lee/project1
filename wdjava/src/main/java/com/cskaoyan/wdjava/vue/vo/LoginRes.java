@@ -1,7 +1,9 @@
 package com.cskaoyan.wdjava.vue.vo;
 
 import com.cskaoyan.wdjava.base.BaseRes;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class LoginRes extends BaseRes {
 
     private String name;

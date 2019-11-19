@@ -1,5 +1,7 @@
 package com.cskaoyan.wdjava.base;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class BaseRes {
     private Integer code = 0;
     private Object data ;

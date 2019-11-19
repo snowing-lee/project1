@@ -3,7 +3,9 @@ package com.cskaoyan.wdjava.admin.bean;
 import com.cskaoyan.wdjava.vue.bean.Specs;
 
 import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class AdminAddGoods {
     private Integer id;
     private String desc; // 描述

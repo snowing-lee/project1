@@ -1,5 +1,7 @@
 package com.cskaoyan.wdjava.vue.bean;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Test {
     private Integer id;
     private String email;
@@ -36,5 +38,15 @@ public class Test {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 }

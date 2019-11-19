@@ -6,7 +6,9 @@ import com.cskaoyan.wdjava.vue.bean.User;
 import org.hibernate.validator.internal.util.logging.Log;
 
 import java.util.Date;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class AdminOrderRes {
 
     private Integer id;
