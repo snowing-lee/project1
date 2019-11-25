@@ -115,6 +115,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         BaseRes baseRes = new BaseRes();
         Integer id = adminLogin.getId();
         String email = adminLogin.getEmail();
+        if (email.equals("admin")){
+            baseRes.setCode(10000);
+            baseRes.setMessage("admin不允许修改");
+            return baseRes;
+        }
         Integer idres = loginMapper.accountaccount(email);
         if (idres != null && id>0 ){
             if (id.intValue() != idres.intValue()){

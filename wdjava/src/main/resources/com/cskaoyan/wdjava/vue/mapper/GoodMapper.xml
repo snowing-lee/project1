@@ -64,7 +64,7 @@
     </resultMap>
     <select id="getReplyByMsgId"  resultMap="BaseReplyMap" parameterType="integer">
          select
-        t.id, t.content, t.createtime
+        t.content, t.createtime
         from replymsg t
         where t.msgId =  #{msgId,jdbcType=INTEGER}
     </select>

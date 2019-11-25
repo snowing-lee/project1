@@ -29,9 +29,9 @@
       <SectionHeader title="限时购" tips="抢抢抢，好货不等人" moreText="更多抢购>"/>
       <div class="content">
         <div class="left">
-          <p class="title">特价场</p>
-          <hr/>
-          <p class="tips">距离结束还剩</p>
+          <p class="title" style="color: white">特价场</p>
+          <hr style="border-color: white"/>
+          <p class="tips" style="color: white">距离结束还剩</p>
           <div class="countBox">
             <span class="time">{{h}}</span>
             <span>:</span>
@@ -39,7 +39,7 @@
             <span>:</span>
             <span class="time">{{s}}</span>
           </div>
-          <div class="allBtn">查看全部 ></div>
+          <div class="allBtn" >查看全部 ></div>
         </div><ul class="right"><li v-for="(item,index) in goodsList.slice(0,4)" :key="item.id">
             <img class="leftImg" :src="item.img" />
             <div class="rightBox">
@@ -80,41 +80,6 @@
             :price="item.price"
           />
         </ul>
-      </div>
-    </section>
-    <section class="maker section">
-      <SectionHeader title="品牌制造商" tips="工厂直达消费者，剔除品牌溢价" moreText="更多制造商>"/>
-      <div class="content">
-        <ZoomImg imgSrc="http://yanxuan.nosdn.127.net/0266209ded1751f599fe0dc21bb33e02.jpg" class="left">
-          <div class="makerInfo" slot="otherEle">
-            <p class="large">Adidas制造商</p>
-            <hr/>
-            <p class="small">35元起</p>
-          </div>
-        </ZoomImg>
-        <ZoomImg imgSrc="http://yanxuan.nosdn.127.net/7cd0c8ed77da498090fb67c288ef05be.jpg" class="center">
-          <div class="makerInfo" slot="otherEle">
-            <p class="large">UGG制造商</p>
-            <hr/>
-            <p class="small">129元起</p>
-          </div>
-        </ZoomImg>
-        <div class="right">
-          <ZoomImg imgSrc="http://yanxuan.nosdn.127.net/d824afe357e61fbee097412c5894c6ce.jpg">
-            <div class="makerInfo" slot="otherEle">
-              <p class="large">新秀丽制造商</p>
-              <hr/>
-              <p class="small">49元起</p>
-            </div>
-          </ZoomImg>
-          <ZoomImg imgSrc="http://yanxuan.nosdn.127.net/cf5f4a0d110ca17b9e0a80e6f7e6184b.jpg">
-            <div class="makerInfo" slot="otherEle">
-              <p class="large">MUJI制造商</p>
-              <hr/>
-              <p class="small">12.9元起</p>
-            </div>
-          </ZoomImg>
-        </div>
       </div>
     </section>
     <section class="typeSection section" v-for="(item,index) in typeList.slice(1)" :key="item.id">
@@ -291,8 +256,7 @@ export default {
         width: 20%;
         height: 100%;
         position: relative;
-        background-image: url(//yanxuan.nosdn.127.net/c9aeb62a3f79123d793d8c49b6698b09.jpg);
-        /*background-image: url('../../assets/img/time.jpg');*/
+        background-image: url('../../assets/img/time.jpg');
         background-repeat: no-repeat;
         background-size: 100%;
         text-align: center;

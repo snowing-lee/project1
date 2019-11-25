@@ -134,6 +134,11 @@ public class LoginServiceImpl implements LoginService {
         String address = loginReq.getAddress();
         String phone = loginReq.getPhone();
         String recipient = loginReq.getRecipient();
+        if (nickname.equals("admin")){
+            baseRes.setCode(10000);
+            baseRes.setMessage("admin不允许修改");
+            return baseRes;
+        }
         loginMapper.updateUserData(loginReq);
 
 
