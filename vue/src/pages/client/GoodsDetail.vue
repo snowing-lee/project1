@@ -231,6 +231,10 @@ export default {
         return this.$route.go(0);
         return;
       }
+        if (this.num < 1){
+            alert('数量不能小于1')
+            return;
+        }
       const res = addOrder({
         token:this.clientToken,
         goodsDetailId:this.temSpecId,
@@ -251,6 +255,10 @@ export default {
       if(!this.clientToken){
         alert('请先登录！');
         return;
+      }
+      if (this.num < 1){
+          alert('数量不能小于1')
+          return;
       }
       const res = addOrder({
         token:this.clientToken,

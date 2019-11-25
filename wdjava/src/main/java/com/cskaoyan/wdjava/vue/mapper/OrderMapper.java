@@ -49,4 +49,6 @@ public interface OrderMapper {
     void insertComment(CommentReq commentReq);
 
     void payOrderById(Integer id);
+
+    void updateGoodsDetail(Order order);
 }

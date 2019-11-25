@@ -26,7 +26,7 @@
       </Slick>
     </section>
     <section class="flashSale section">
-      <SectionHeader title="限时购" tips="抢抢抢，好货不等人" moreText="更多抢购>"/>
+      <SectionHeader title="限时抢" tips="抢抢抢，好货不等人" moreText="更多抢购>"/>
       <div class="content">
         <div class="left">
           <p class="title" style="color: white">特价场</p>
@@ -59,7 +59,7 @@
       </div>
     </section>
     <section class="hotGoods section">
-      <SectionHeader title="人气推荐" tips="最火最潮商品，为您挑选" moreText="更多推荐>"/>
+      <SectionHeader title="今日推荐" tips="最火最潮商品，为您挑选" moreText="更多推荐>"/>
       <div class="content">
         <ul class="left">
           <GoodsItem

@@ -167,4 +167,16 @@
         where id =  #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="updateGoodsDetail" parameterType="com.cskaoyan.wdjava.vue.bean.Order">
+        update goodsdetails
+        set  stockNum = #{stockNum,jdbcType=INTEGER}
+        where id= #{goodsDetailId,jdbcType=INTEGER}
+        and id in (
+            select o.goodsDetailId
+            from orders o
+            where o.id = #{id,jdbcType=INTEGER}
+            and o.state <![CDATA[!= ]]> 3
+        )
+    </update>
+
 </mapper>

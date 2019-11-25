@@ -99,6 +99,12 @@ public class OrderServiceImpl implements OrderService {
         BaseRes baseRes = new BaseRes();
         Integer id = orderReq.getId();
 
+        // 删除订单后 数量返还
+        Order order = orderMapper.getOrderById(id);
+        order.setId(id);
+        order.setStockNum(order.getStockNum()+order.getNum());
+        orderMapper.updateGoodsDetail(order);
+
         orderMapper.deleteOrder(id);
 
         baseRes.setCode(0);
