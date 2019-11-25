@@ -19,8 +19,8 @@
         <tbody>
             <tr v-for="(item,index) in adminsList" :key="'user'+item.id">
                 <td>{{item.id}}</td>
-                <td>{{item.account}}</td>
-                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.nickname}}</td>
                 <td>{{item.pwd}}</td>
 
               <td><button class="delete" @click="deleteAdmins(item.id)">删除</button></td>
@@ -88,12 +88,12 @@ export default {
   		})
   	},
     searchAdmins(){
-  		const name = this.$refs.inputName.value;
-      const account = this.$refs.inputAccount.value;
+  		const nickname = this.$refs.inputName.value;
+      const email = this.$refs.inputAccount.value;
 
       const res = getSearchAdmins({
-          name:name,
-          account:account
+          name:nickname,
+          email:email
       });
       res
   		.then((data)=>{

@@ -151,7 +151,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
         List<AdminStates> listStates =  new ArrayList<>();
         AdminStates states0 = new AdminStates(0, "未付款");
-        AdminStates states1 = new AdminStates(1, "已付款");
+        AdminStates states1 = new AdminStates(1, "未发货");
         AdminStates states2 = new AdminStates(2, "已发货");
         AdminStates states3 = new AdminStates(3, "已完成订单");
         listStates.add(states0);

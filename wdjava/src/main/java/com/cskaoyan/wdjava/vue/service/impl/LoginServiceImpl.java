@@ -21,7 +21,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public BaseRes login(LoginReq loginReq) throws Exception {
         BaseRes baseRes = new BaseRes();
-        String account = loginReq.getAccount();
+        String account = loginReq.getEmail();
         String pwd = loginReq.getPwd();
 
 

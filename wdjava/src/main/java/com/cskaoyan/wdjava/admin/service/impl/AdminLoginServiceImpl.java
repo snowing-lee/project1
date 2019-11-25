@@ -20,10 +20,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Override
     public BaseRes login(AdminLoginReq loginReq) throws Exception {
         BaseRes baseRes = new BaseRes();
-        String account = loginReq.getAccount();
+        String email = loginReq.getEmail();
         String pwd = loginReq.getPwd();
 
-        AdminLogin adminLogin = loginMapper.selectMsgByAccount(account);
+        AdminLogin adminLogin = loginMapper.selectMsgByAccount(email);
         if (adminLogin == null){
             baseRes.setCode(10000);
             baseRes.setMessage("该账号不存在");
@@ -38,8 +38,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }
 
         AdminLoginRes adminLoginRes = new AdminLoginRes();
-        adminLoginRes.setToken(adminLogin.getName());
-        adminLoginRes.setName(adminLogin.getName());
+        adminLoginRes.setToken(adminLogin.getNickname());
+        adminLoginRes.setName(adminLogin.getNickname());
         baseRes.setCode(0);
         baseRes.setData(adminLoginRes);
         return baseRes;
@@ -85,15 +85,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Override
     public BaseRes addAdminss(AdminLogin adminLogin) throws Exception {
         BaseRes baseRes = new BaseRes();
-        String account = adminLogin.getAccount();
-        Integer id = loginMapper.accountaccount(account);
+        String email = adminLogin.getEmail();
+        Integer id = loginMapper.accountaccount(email);
         if (id != null && id>0 ){
             baseRes.setCode(10000);
             baseRes.setMessage("该账号不允许重复使用");
             return baseRes;
         }
         id = null;
-        id = loginMapper.namemane(adminLogin.getName());
+        id = loginMapper.namemane(adminLogin.getNickname());
         if (id != null && id>0 ){
             baseRes.setCode(10000);
             baseRes.setMessage("该用户名不允许重复使用");
@@ -114,8 +114,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public BaseRes updateAdminss(AdminLogin adminLogin) throws Exception {
         BaseRes baseRes = new BaseRes();
         Integer id = adminLogin.getId();
-        String account = adminLogin.getAccount();
-        Integer idres = loginMapper.accountaccount(account);
+        String email = adminLogin.getEmail();
+        Integer idres = loginMapper.accountaccount(email);
         if (idres != null && id>0 ){
             if (id.intValue() != idres.intValue()){
                 baseRes.setCode(10000);
@@ -124,7 +124,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             }
         }
         id = null;
-        id = loginMapper.namemane(adminLogin.getName());
+        id = loginMapper.namemane(adminLogin.getNickname());
         if (id != null && id>0 ){
             baseRes.setCode(10000);
             baseRes.setMessage("该用户名不允许重复使用");

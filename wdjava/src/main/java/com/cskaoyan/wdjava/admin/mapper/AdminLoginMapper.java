@@ -5,7 +5,7 @@ import com.cskaoyan.wdjava.admin.bean.ChangePwd;
 
 public interface AdminLoginMapper {
 
-    AdminLogin selectMsgByAccount(String account);
+    AdminLogin selectMsgByAccount(String email);
 
     void deleteUser(Integer id);
 
@@ -19,7 +19,7 @@ public interface AdminLoginMapper {
 
     void updateAdminss(AdminLogin adminLogin);
 
-    Integer accountaccount(String account);
+    Integer accountaccount(String email);
 
     void deleteOrderByUserId(Integer id);
 
@@ -27,5 +27,5 @@ public interface AdminLoginMapper {
 
     void deleteReMessageByUserid(Integer id);
 
-    Integer namemane(String name);
+    Integer namemane(String nickname);
 }

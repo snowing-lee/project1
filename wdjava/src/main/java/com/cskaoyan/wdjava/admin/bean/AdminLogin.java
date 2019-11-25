@@ -7,6 +7,24 @@ public class AdminLogin {
     private String account;
     private String name;
     private String pwd;
+    private String email;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Integer getId() {
         return id;

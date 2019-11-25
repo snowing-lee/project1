@@ -96,7 +96,7 @@ export default {
     },
     getOrdersByPage(index){
         this.index = index
-        const state = index-1; //  -1:全部信息,0:未付款,1:已付款, 2:已发货,3:已完成订单
+        const state = index-1; //  -1:全部信息,0:未付款,1:未发货, 2:已发货,3:已完成订单
         const currentPage = this.currentPage; // 第几页
         const pagesize = this.pagesize; // 页中有几条
 

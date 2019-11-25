@@ -3,7 +3,7 @@
     <div class="content">
       <h3>Online Mart</h3>
       <P>后台管理系统</P>
-      <input ref="account" type="text" placeholder="账号" />
+      <input ref="email" type="text" placeholder="账号" />
       <input ref="pwd" type="password" placeholder="密码" />
       <button @click="login">登录</button>
     </div>
@@ -35,12 +35,12 @@ export default {
       setAdminToken: 'SET_ADMIN_TOKEN'
     }),
     login(){
-      const account = this.$refs.account.value;
+      const email = this.$refs.email.value;
       const pwd = this.$refs.pwd.value;
 
 
       const res = login({
-        account:account,
+        email:email,
         pwd:pwd
       });
       res

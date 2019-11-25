@@ -7,13 +7,13 @@
 
       <div class="inputBox">
         <span>账号：</span>
-        <TextInput class="long" placeholder="请输入账号" v-model="account" :initText="account"/>
+        <TextInput class="long" placeholder="请输入邮箱账号" v-model="email" :initText="email"/>
       </div>
 
 
       <div class="inputBox">
         <span>昵称：</span>
-        <TextInput class="long" placeholder="请输入昵称" v-model="name" :initText="name"/>
+        <TextInput class="long" placeholder="请输入昵称" v-model="nickname" :initText="nickname"/>
       </div>
       <div class="inputBox">
         <span>密码：</span>
@@ -41,8 +41,8 @@ export default {
   data(){
     return{
       id:this.$route.params.id, // 两种参数 addAdmins  or  id
-      account:'',
-      name:'',
+      email:'',
+      nickname:'',
       pwd:''
     }
   },
@@ -55,14 +55,14 @@ export default {
 
         // 必须qq邮箱 qq号5-12位
         let testEmail = /^\d{5,12}@[qQ][qQ]\.(com|cn)$/
-        if (!testEmail.test(this.account)){
+        if (!testEmail.test(this.email)){
             alert("账户正则验证未通过!")
             return;
         }
 
         //只能包括数字字母的组合，长度为4-15位
         let testNickName = /^[A-Za-z0-9]{4,15}$/;
-        if (!testNickName.test(this.name)){
+        if (!testNickName.test(this.nickname)){
             alert("昵称正则验证未通过!")
             return;
         }
@@ -76,8 +76,8 @@ export default {
 
       if(this.id==='addAdmins'){// 表示添加
         const res = addAdminss({
-          name:this.name,
-          account:this.account,
+          nickname:this.nickname,
+          email:this.email,
           pwd:this.pwd
         });
         res
@@ -90,8 +90,8 @@ export default {
       }else{// 表示修改
         const res = updateAdminss({
           id:this.id,
-          name:this.name,
-          account:this.account,
+          nickname:this.nickname,
+          email:this.email,
           pwd:this.pwd
         });
         res
@@ -113,8 +113,8 @@ export default {
       res
       .then((data)=>{
 
-        this.account = data.account;
-        this.name = data.name;
+        this.email = data.email;
+        this.nickname = data.nickname;
         this.id = data.id;
         this.pwd = data.pwd;
       })

@@ -4,14 +4,14 @@
 
     <resultMap id="BaseMap" type="com.cskaoyan.wdjava.admin.bean.AdminLogin">
         <result column="id" jdbcType="INTEGER" property="id"/>
-        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="email" jdbcType="VARCHAR" property="account"/>
         <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
     </resultMap>
     <select id="selectMsgByAccount" resultMap="BaseMap" parameterType="string">
-       select id,  account,  pwd,  name
+       select id,  email,  pwd,  nickname
        from admins g
-       where account =  #{account,jdbcType=VARCHAR}
+       where email =  #{email,jdbcType=VARCHAR}
     </select>
 
     <delete id="deleteUser" parameterType="integer">
@@ -42,24 +42,24 @@
     <select id="selectAdminByTokenName" parameterType="string" resultMap="BaseToken">
         select pwd
         from admins
-        where name =  #{adminToken,jdbcType=VARCHAR}
+        where nickname =  #{adminToken,jdbcType=VARCHAR}
     </select>
 
     <update id="updatePwd" parameterType="com.cskaoyan.wdjava.admin.bean.ChangePwd">
         update admins
         set pwd =  #{newPwd,jdbcType=VARCHAR}
-        where name =  #{adminToken,jdbcType=VARCHAR}
+        where nickname =  #{adminToken,jdbcType=VARCHAR}
     </update>
 
     <insert id="addAdminss" parameterType="com.cskaoyan.wdjava.admin.bean.AdminLogin">
          insert into admins (
-                account,
-                name,
+                email,
+                nickname,
                 pwd
         )
         values (
-                #{account,jdbcType=VARCHAR},
-                #{name,jdbcType=VARCHAR},
+                #{email,jdbcType=VARCHAR},
+                #{nickname,jdbcType=VARCHAR},
                 #{pwd,jdbcType=VARCHAR}
         )
     </insert>
@@ -67,8 +67,8 @@
     <update id="updateAdminss" parameterType="com.cskaoyan.wdjava.admin.bean.AdminLogin">
         update admins
         set
-            account =  #{account,jdbcType=VARCHAR},
-            name =  #{name,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR},
+            nickname =  #{nickname,jdbcType=VARCHAR},
             pwd =  #{pwd,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
 
@@ -77,12 +77,12 @@
     <select id="accountaccount" parameterType="string" resultType="integer">
         select id
         from admins
-        where account = #{account,jdbcType=VARCHAR}
+        where email = #{email,jdbcType=VARCHAR}
     </select>
 
     <select id="namemane" parameterType="string" resultType="integer">
         select id
         from admins
-        where `name` = #{name,jdbcType=VARCHAR}
+        where nickname = #{nickname,jdbcType=VARCHAR}
     </select>
 </mapper>

@@ -7,7 +7,7 @@
         <span @click="setIndex(1)" :class="{selected:curIndex===1}">注册</span>
       </div>
       <div class="formBox" v-show="curIndex===0">
-        <input ref="account" type="text" placeholder="账号" />
+        <input ref="email" type="text" placeholder="邮箱账号" />
         <input ref="pwd" type="password" placeholder="密码" />
         <button @click="login">登录</button>
       </div>
@@ -63,10 +63,10 @@ export default {
       this.curIndex = index;
     },
     login(){
-      const account = this.$refs.account.value;
+      const email = this.$refs.email.value;
       const pwd = this.$refs.pwd.value;
       const res = login({
-        account:account,
+          email:email,
         pwd:pwd
       });
       res
