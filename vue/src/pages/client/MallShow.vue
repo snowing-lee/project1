@@ -15,19 +15,6 @@
         </ul>
       </div>
     </FixedNav>
-<!--    <div class="logo">-->
-<!--      <img src="../../assets/img/index1.gif"/>-->
-<!--      <div class="searchBox">-->
-<!--        <TipsInput-->
-<!--          placeholder="请输入商品关键字"-->
-<!--          :tips="tips"-->
-<!--          @tipsChosen="searchTip"-->
-<!--          ref="TipsInput"-->
-<!--          v-model="searchText"-->
-<!--        />-->
-<!--        <i class="iconfont icon-search" @click="searchConfirm"/>-->
-<!--      </div>-->
-<!--    </div>-->
     <ul ref="typeList" class="typeList">
       <li
         v-for="(item,index) in typeList"
@@ -62,7 +49,7 @@ export default {
     return {
       typeList:[],
       searchText:'',
-      tips:['aa','bb','cc'],
+      tips:[''],
       navShouldFixed:false,
       datamid: ''
     }
@@ -136,7 +123,7 @@ export default {
       }
     },
     searchTip(tip){
-      alert(tip)
+      // alert(tip)
     },
     searchTextChange(text){
     },
@@ -199,35 +186,6 @@ export default {
 @import "../../assets/css/var.less";
 .MallShow{
   width: 100%;
-  .logo{
-    display: block;
-    margin: -10px auto 30px;
-    text-align: right;
-    user-select:none;
-    vertical-align: middle;
-    img{
-      display: inline-block;
-      width: 33.3%;
-    vertical-align: middle;
-    }
-    .searchBox{
-      display: inline-block;
-      width: 33.3%;
-      vertical-align: middle;
-      text-align: left;
-      .TipsInput{
-        margin-left: 30px;
-      }
-      .icon-search{
-        font-size: 24px;
-        font-weight: bold;
-        color:@thirdColor;
-        cursor: pointer;
-        position: relative;
-        top: 4px;
-      }
-    }
-  }
   .typeList{
     width: 100%;
     margin-top: 20px;

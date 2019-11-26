@@ -5,6 +5,21 @@
       <img class="banner" slot="item2" src="../../assets/img/2.jpg" />
       <img class="banner" slot="item3" src="../../assets/img/3.png" />
     </FadeSwiper>
+    <div style="color: black; margin-top: 460px;float: right; margin-right: 50px">
+      <ul >
+        <li>
+          <TipsInput
+            placeholder="请输入商品关键字"
+            :tips="tips"
+            @tipsChosen="searchTip"
+            ref="TipsInput"
+            v-model="searchText"
+            style="display: inline-block;"
+          />
+          <i class="iconfont icon-search" @click="searchConfirm"/>
+        </li>
+      </ul>
+    </div>
     <section class="newGoods section">
       <SectionHeader title="新品上市" tips="热卖新品" moreText="更多新品>"/>
       <Slick
@@ -106,6 +121,7 @@ import ZoomImg from '../../components/ZoomImg';
 import GoodsItem from '../../components/GoodsItem';
 import Slick from '../../components/Slick';
 import FadeSwiper from '../../components/FadeSwiper';
+import TipsInput from '../../components/TipsInput';
 
 import {getClientSize,getScrollWidth} from '../../util/util';
 
@@ -116,7 +132,8 @@ export default {
     ZoomImg,
     GoodsItem,
     Slick,
-    FadeSwiper
+    FadeSwiper,
+    TipsInput
   },
   computed:{
     clientWidth(){
@@ -134,10 +151,19 @@ export default {
       h:0,
       m:0,
       s:0,
+      searchText:'',
+      tips:[],
     }
   },
 
   methods:{
+    searchConfirm(){
+        if(this.searchText.trim().length<=0){
+            alert('输入不能为空！');
+            return;
+        }
+        this.navTo(`/mall/show/goodsList/0/${this.searchText}`);
+    },
     filterGoodsByType(typeid){
       return this.goodsList.filter((item)=>{
         return item.typeId===typeid;
@@ -243,7 +269,8 @@ export default {
     }
   }
   .newGoods{
-    margin-top: 440px;
+    /*margin-top: 440px;*/
+    clear: both;
   }
   .flashSale{
     .content{
