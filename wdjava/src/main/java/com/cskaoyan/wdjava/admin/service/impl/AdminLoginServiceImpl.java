@@ -121,19 +121,21 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             return baseRes;
         }
         Integer idres = loginMapper.accountaccount(email);
-        if (idres != null && id>0 ){
+        if (idres != null && idres>0 ){
             if (id.intValue() != idres.intValue()){
                 baseRes.setCode(10000);
                 baseRes.setMessage("该账号不允许重复使用");
                 return baseRes;
             }
         }
-        id = null;
-        id = loginMapper.namemane(adminLogin.getNickname());
-        if (id != null && id>0 ){
-            baseRes.setCode(10000);
-            baseRes.setMessage("该用户名不允许重复使用");
-            return baseRes;
+//        id = null;
+        Integer ids = loginMapper.namemane(adminLogin.getNickname());
+        if (ids != null && ids>0 ){
+            if (ids.intValue() != id.intValue()) {
+                baseRes.setCode(10000);
+                baseRes.setMessage("该用户名不允许重复使用");
+                return baseRes;
+            }
         }
         String name = adminLogin.getName();
         String pwd = adminLogin.getPwd();

@@ -103,7 +103,7 @@ export default {
       this.$router.go(-1);
     },
     saveChange(){
-      if(this.id==='new'){
+      if(this.id.indexOf('new') !== -1){
         const res = addGoods({
           name:this.goodsName,
           typeId:this.temTypeId,
@@ -140,7 +140,7 @@ export default {
       this.popupShow = false;
     },
     addConfirm(){
-      if(this.id==='new'){
+      if(this.id.indexOf('new') !== -1){
         const name = this.$refs.specNameInput.value;
         const stock = this.$refs.stockNumInput.value;
         const price = this.$refs.priceInput.value;
@@ -170,7 +170,7 @@ export default {
       this.popupShow = true;
     },
     deleteSpec(specname){
-      if(this.id==='new'){
+      if(this.id.indexOf('new') !== -1){
         this.specList.map((item,index)=>{
           if(item.specName===specname){
             this.specList.splice(index,1);

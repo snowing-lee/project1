@@ -92,7 +92,7 @@ export default {
       const email = this.$refs.inputAccount.value;
 
       const res = getSearchAdmins({
-          name:nickname,
+          nickname:nickname,
           email:email
       });
       res

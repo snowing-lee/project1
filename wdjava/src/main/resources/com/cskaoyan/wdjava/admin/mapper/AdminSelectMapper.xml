@@ -34,11 +34,11 @@
        select id, email, nickname, pwd
        from admins
        where 1=1
-        <if test="account != null and account!='' ">
+        <if test="email != null and email!='' ">
             and email like  upper(concat(concat('%',#{email,jdbcType=VARCHAR}),'%'))
         </if>
-        <if test="name != null and name!='' ">
-            and name like  upper(concat(concat('%',#{name,jdbcType=VARCHAR}),'%'))
+        <if test="nickname != null and nickname!='' ">
+            and nickname like  upper(concat(concat('%',#{nickname,jdbcType=VARCHAR}),'%'))
         </if>
 
     </select>

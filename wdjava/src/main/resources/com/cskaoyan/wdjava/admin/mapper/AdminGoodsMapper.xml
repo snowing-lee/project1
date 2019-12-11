@@ -102,7 +102,6 @@
         delete from orders
         where goodsDetailId not in (
         select id from  goodsdetails
-        where goodsId = #{id,jdbcType=INTEGER}
         )
     </delete>
     <delete id="deleteMessageByGoodsId"  parameterType="integer">

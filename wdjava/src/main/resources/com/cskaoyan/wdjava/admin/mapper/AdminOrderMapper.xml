@@ -45,21 +45,21 @@
             select gd.id
             from goodsdetails gd , goods gs
             where gd.goodsId = gs.id
-            and gs.name =  #{goods, jdbcType=VARCHAR}
+            and gs.name like  upper(concat(concat('%',#{goods, jdbcType=VARCHAR}),'%'))
             )
         </if>
         <if test="name != null and name!='' ">
             and userId in
             (
             select id from users
-            where recipient = #{name,jdbcType=VARCHAR}
+            where nickname like  upper(concat(concat('%',#{name,jdbcType=VARCHAR}),'%'))
             )
         </if>
         <if test="address != null and address!='' ">
-            and goodsDetailId in
+            and userId in
             (
             select id from users
-            where address = #{address,jdbcType=VARCHAR}
+            where address like  upper(concat(concat('%',#{address,jdbcType=VARCHAR}),'%'))
             )
         </if>
     </select>
@@ -113,21 +113,21 @@
             select gd.id
             from goodsdetails gd , goods gs
             where gd.goodsId = gs.id
-            and gs.name =  #{goods, jdbcType=VARCHAR}
+            and gs.name like  upper(concat(concat('%',#{goods, jdbcType=VARCHAR}),'%'))
             )
         </if>
         <if test="name != null and name!='' ">
             and userId in
             (
             select id from users
-            where recipient = #{name,jdbcType=VARCHAR}
+            where nickname like  upper(concat(concat('%',#{name,jdbcType=VARCHAR}),'%'))
             )
         </if>
         <if test="address != null and address!='' ">
-            and goodsDetailId in
+            and userId in
             (
             select id from users
-            where address = #{address,jdbcType=VARCHAR}
+            where address like  upper(concat(concat('%',#{address,jdbcType=VARCHAR}),'%'))
             )
         </if>
         order by createtime desc

@@ -39,6 +39,9 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
         List<AdminOrderRes> totollist = adminOrderMapper.getOrders(adminOrderReq);
         int total = totollist.size();
+        if (total < pagesize*1){
+            adminOrderReq.setLimit(0);
+        }
 
 
         List<AdminOrderRes> list = adminOrderMapper.ordersByPage(adminOrderReq);

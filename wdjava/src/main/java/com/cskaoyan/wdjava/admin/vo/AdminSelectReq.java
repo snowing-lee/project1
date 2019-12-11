@@ -11,6 +11,15 @@ public class AdminSelectReq {
     private String word;
     private Integer id;
     private String email;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getEmail() {
         return email;
